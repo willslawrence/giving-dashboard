@@ -264,8 +264,22 @@ const allManualRecipients = [
     lastUpdate: "",
     score: null,
     scoreLabel: "N/R",
-    auditPdf: "audits/Radical_Audit.pdf",
-    stats: { programs: "Not rated yet", ceoPay: "Not available", revenue: "$5.75M" }
+    stats: { programs: "Not rated yet", ceoPay: "Not available", revenue: "$5.75M" },
+    audit: {
+      ein: "27-2343084", location: "Founded by David Platt", score: null, scoreSource: "Insufficient data",
+      financials: [
+        {metric:"Revenue",value:"$5.75M"},{metric:"Expenses",value:"$3.69M"},
+        {metric:"Total Assets",value:"$3.52M"},{metric:"Liabilities",value:"$596K (16.9%)",rating:"Moderate",ratingColor:"amber"},
+        {metric:"Program Ratio",value:"Not calculated",rating:"Unrated",ratingColor:"amber"}
+      ],
+      leaders: [{name:"David Platt",role:"Chair/Founder",comp:"$0"},{name:"Christopher Hunsberger",role:"CEO/Director",comp:"$159,102"},{name:"Warren Beason",role:"President",comp:"$66,128"},{name:"3 Directors",role:"Various",comp:"$0"}],
+      leaderNote: "Total: ~$225K / $3.69M = 6.1% · David Platt takes $0",
+      governance: ["ECFA member","Board majority independent","Platt takes no salary","Consistent filings 2011–2021"],
+      redflags: "Charity Navigator cannot rate yet. Most recent 990 is FY2021 — 3+ years old. Platt faced governance disputes at McLean Bible Church (separate from Radical).",
+      redflagLevel: "amber",
+      verdict: "Lean operation, founder takes $0, ECFA member. A pure missions-focused ministry — your dollar funds Gospel teaching, church planting, and missions mobilization.",
+      sources: "Sources: IRS Form 990 (FY2021), ProPublica, ECFA · Prepared by Po — Feb 2026"
+    }
   },
   // ── ORPHANS, WIDOWS & SOJOURNERS ──
   {
@@ -284,8 +298,24 @@ const allManualRecipients = [
     lastUpdate: "",
     score: 100,
     scoreLabel: "100",
-    auditPdf: "audits/Crisis_Aid_Audit.pdf",
-    stats: { programs: "90¢ per $1 to programs", ceoPay: "$0.03 to raise $1", revenue: "$5.88M" }
+    stats: { programs: "90¢ per $1 to programs", ceoPay: "$0.03 to raise $1", revenue: "$5.88M" },
+    audit: {
+      ein: "30-0060905", location: "St. Louis, MO · Founded 2002", score: 100, scoreSource: "Charity Navigator FY2024",
+      financials: [
+        {metric:"Program Expense Ratio",value:"90.25%",rating:"Excellent",ratingColor:"green"},
+        {metric:"Fundraising Efficiency",value:"$0.03 to raise $1",rating:"Excellent",ratingColor:"green"},
+        {metric:"Revenue / Expenses",value:"$5.88M / $5.89M"},
+        {metric:"Liabilities to Assets",value:"2.84%",rating:"Very Low",ratingColor:"green"},
+        {metric:"Working Capital",value:"0.94 years",rating:"Healthy",ratingColor:"green"}
+      ],
+      leaders: [{name:"Patrick Bradley",role:"President/Founder",comp:"$124,767"},{name:"Susan Bradley",role:"Vice President",comp:"$55,978"},{name:"Mike Lemp",role:"Secretary",comp:"$50,785"},{name:"5 Board Directors",role:"Various",comp:"$0 (unpaid)"}],
+      leaderNote: "Total: ~$231K / $5.89M = 3.9% · Benefits: 0% · No bonuses",
+      governance: ["62% independent board (5/8)","Audited w/ oversight committee","No asset diversion","All policies in place","ECFA accredited","990 published on website"],
+      redflags: "None found. No scandals, complaints, or controversies. Consistent filings since 2007. Stable salaries year over year.",
+      redflagLevel: "clean",
+      verdict: "Clean finances, Gospel-centered mission, lean leadership. <strong>90% to programs</strong>, founder modestly paid. A strong choice for giving.",
+      sources: "Sources: IRS Form 990 (FY2024), Charity Navigator, ProPublica, ECFA · Prepared by Po — Feb 2026"
+    }
   },
   {
     name: "Lifesong for Orphans",
@@ -303,8 +333,24 @@ const allManualRecipients = [
     lastUpdate: "",
     score: 100,
     scoreLabel: "100",
-    auditPdf: "audits/Lifesong_Audit.pdf",
-    stats: { programs: "93¢ per $1 to programs", ceoPay: "$0.04 to raise $1", revenue: "$42.8M" }
+    stats: { programs: "93¢ per $1 to programs", ceoPay: "$0.04 to raise $1", revenue: "$42.8M" },
+    audit: {
+      ein: "35-1902841", location: "Gridley, IL · Founded 2003", score: 100, scoreSource: "Charity Navigator FY2024",
+      financials: [
+        {metric:"Program Expense Ratio",value:"93.20%",rating:"Excellent",ratingColor:"green"},
+        {metric:"Fundraising Efficiency",value:"$0.04 to raise $1",rating:"Excellent",ratingColor:"green"},
+        {metric:"Revenue / Expenses",value:"$42.8M / $34.4M"},
+        {metric:"Liabilities to Assets",value:"0.73%",rating:"Extremely Low",ratingColor:"green"},
+        {metric:"Working Capital",value:"2.28 years",rating:"Strong",ratingColor:"green"}
+      ],
+      leaders: [{name:"Gary Ringger",role:"President/CEO",comp:"$0 (volunteers)"},{name:"N. Andrew Lehman",role:"Vice President",comp:"$241,522"},{name:"Kory Kaeb",role:"VP Operations",comp:"$225,855"},{name:"7 Board Directors",role:"Various",comp:"$0 (all unpaid)"}],
+      leaderNote: "CEO volunteers. 100% independent board (7/7). Benefits: 2%.",
+      governance: ["100% independent board","Audited w/ oversight committee","No asset diversion","All policies in place","ECFA accredited","Donor-advised fund"],
+      redflags: "None found. No controversies, scandals, or complaints. CEO donates his time. Impeccable record.",
+      redflagLevel: "clean",
+      verdict: "One of the best. <strong>93% to programs, CEO works free, 100% independent board</strong>, Gospel at the center.",
+      sources: "Sources: IRS Form 990 (FY2024), Charity Navigator, ProPublica, ECFA · Prepared by Po — Feb 2026"
+    }
   },
   {
     name: "Send Relief",
@@ -322,8 +368,23 @@ const allManualRecipients = [
     lastUpdate: "",
     score: null,
     scoreLabel: "N/R",
-    auditPdf: "audits/Send_Relief_Audit.pdf",
-    stats: { programs: "Not public", ceoPay: "Not public", revenue: "Under NAMB" }
+    stats: { programs: "Not public", ceoPay: "Not public", revenue: "Under NAMB" },
+    audit: {
+      ein: "75-1977130", location: "Alpharetta, GA · SBC Ministry", score: null, scoreSource: "Church entity — exempt",
+      financials: [
+        {metric:"Public IRS Form 990",value:"N/A — church exemption",rating:"Cannot verify",ratingColor:"amber"},
+        {metric:"Revenue",value:"Embedded in NAMB financials",rating:"No breakout",ratingColor:"amber"},
+        {metric:"Independent Audit",value:"Yes — NAMB publishes on sbc.net",rating:"Good",ratingColor:"green"},
+        {metric:"ECFA Accredited",value:"Yes (via NAMB)",rating:"Good",ratingColor:"green"}
+      ],
+      leaders: [{name:"(NAMB leadership)",role:"Send Relief under NAMB",comp:"Not disclosed"}],
+      leaderNote: "Individual compensation not publicly disclosed. SBC trustees provide oversight.",
+      governance: ["ECFA accredited (via NAMB)","Audited financials on SBC website"],
+      redflags: "No independent financials — cannot verify program vs. overhead ratio. Federal grant controversy. SBC Transparency group has requested forensic audit of NAMB spending.",
+      redflagLevel: "amber",
+      verdict: "Huge mission connected to Gospel work through the SBC's global network. ECFA accredited and audited. But <strong>you cannot independently verify how your dollar is allocated</strong> — it's a matter of trusting SBC governance.",
+      sources: "Sources: SBC.net, ECFA (NAMB profile), GuideStar, SBC Transparency · Prepared by Po — Feb 2026"
+    }
   },
   // ── PERSECUTED CHURCH ──
   {
@@ -342,8 +403,24 @@ const allManualRecipients = [
     lastUpdate: "Feb 2026",
     score: 75,
     scoreLabel: "75",
-    auditPdf: "audits/Open_Doors_Audit.pdf",
-    stats: { programs: "60¢ per $1 to programs", ceoPay: "$0.23 to raise $1", revenue: "$9.11M" }
+    stats: { programs: "60¢ per $1 to programs", ceoPay: "$0.23 to raise $1", revenue: "$9.11M" },
+    audit: {
+      ein: "92-1154296", location: "Santa Ana, CA · Founded 1955", score: 75, scoreSource: "Charity Navigator FY2024",
+      financials: [
+        {metric:"Program Expense Ratio",value:"60%",rating:"Below Average",ratingColor:"amber"},
+        {metric:"Fundraising Efficiency",value:"$0.23 to raise $1",rating:"High Cost",ratingColor:"red"},
+        {metric:"Revenue / Expenses",value:"$9.11M / $9.26M"},
+        {metric:"Liabilities to Assets",value:"15%",rating:"Healthy",ratingColor:"green"},
+        {metric:"Working Capital",value:"2.83 months",rating:"Adequate",ratingColor:"green"}
+      ],
+      leaders: [{name:"Ryan Brown",role:"CEO",comp:"$193,871"},{name:"Sarah Cunningham",role:"COO",comp:"$174,196"},{name:"Kevin Wilson",role:"CIO",comp:"$164,823"},{name:"Andrew Richards",role:"Sr. Dir. Partnerships",comp:"$144,051"},{name:"Matthew Dewolf",role:"CFO",comp:"$42,592"},{name:"3 Board Directors",role:"Various",comp:"$0"}],
+      leaderNote: "Total top-5: ~$719K / $9.26M = 7.8% · CEO ratio: 5.7x avg · Benefits: 23%",
+      governance: ["ECFA accredited (2024)","Audited w/ oversight committee","No asset diversion","All policies in place","990 on website"],
+      redflags: "High fundraising costs (22%), low program ratio (60%), very small board (3 members). Complex restructuring — split from Open Doors USA (now GCR) in Jan 2023. New EIN, rebuilding track record.",
+      redflagLevel: "warning",
+      verdict: "Legendary mission with Brother Andrew's legacy. World Watch List is globally respected. However, <strong>60% to programs and 22% fundraising costs are below standards</strong>. Consider a smaller initial gift and review after FY2025.",
+      sources: "Sources: IRS Form 990 (FY2024), Charity Navigator, ProPublica, ECFA · Prepared by Po — Feb 2026"
+    }
   },
   {
     name: "Global Christian Relief",
@@ -361,8 +438,22 @@ const allManualRecipients = [
     lastUpdate: "",
     score: -1,
     scoreLabel: "⚠️",
-    auditPdf: "audits/Global_Christian_Relief_Audit.pdf",
-    stats: { programs: "Not rated yet", ceoPay: "Not available", revenue: "$33.6M" }
+    stats: { programs: "Not rated yet", ceoPay: "Not available", revenue: "$33.6M" },
+    audit: {
+      ein: "23-7275342", location: "Santa Ana, CA · Rebranded Jan 2023", score: null, scoreSource: "Insufficient data",
+      financials: [
+        {metric:"Revenue",value:"$33.6M"},{metric:"Expenses",value:"$28.8M"},
+        {metric:"Total Assets",value:"$12.2M"},{metric:"Liabilities",value:"$2.88M (23.6%)",rating:"Notable",ratingColor:"amber"},
+        {metric:"Program Ratio",value:"Not calculated",rating:"Unrated",ratingColor:"amber"}
+      ],
+      leaders: [{name:"David Curry",role:"President/CEO",comp:"$324,223"},{name:"Tim Muret",role:"Chief Comms Officer",comp:"$253,028"},{name:"Jeff Taylor",role:"Chief of Staff",comp:"$198,345"},{name:"9 Board Directors",role:"Various",comp:"$0 (unpaid)"}],
+      leaderNote: "CEO total comp $324K on $33.6M revenue. 'Other comp' includes retirement/benefits.",
+      governance: ["Board directors unpaid (9)"],
+      redflags: "Organizational split (Jan 2023) after founder died. CEO comp $324K higher than peers. Most recent 990 is 2020. No ECFA accreditation for rebranded entity.",
+      redflagLevel: "warning",
+      verdict: "The mission — serving persecuted Christians — is vital. But the <strong>split, higher compensation, and lack of current financial transparency warrant caution</strong>. Consider Open Doors International as an alternative.",
+      sources: "Sources: IRS Form 990 (FY2020), ProPublica, Christianity Today · Prepared by Po — Feb 2026"
+    }
   },
   // ── MINISTRY OF THE WORD / GLOBAL CHURCH NEEDS ──
   {
@@ -546,8 +637,60 @@ function openModal(r) {
     </div>`;
   }
   
-  if (r.type === 'org' && r.auditPdf) {
-    content += `<iframe class="audit-frame" src="${r.auditPdf}"></iframe>`;
+  if (r.type === 'org' && r.audit) {
+    const a = r.audit;
+    const scoreColor = a.score >= 80 ? '#16a34a' : a.score >= 60 ? '#ca8a04' : a.score === null ? '#94a3b8' : '#dc2626';
+    const scoreBg = a.score >= 80 ? '#dcfce7' : a.score >= 60 ? '#fef9c3' : a.score === null ? '#f1f5f9' : '#fee2e2';
+    content += `<div style="border:1px solid var(--border);border-radius:12px;padding:20px;margin-top:12px;background:var(--bg)">`;
+    content += `<div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:14px">
+      <div>
+        <div style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Charity Audit</div>
+        <div style="font-size:11px;color:var(--muted)">${a.ein} · ${a.location}</div>
+      </div>
+      <div style="text-align:center">
+        <div style="width:52px;height:52px;border-radius:50%;border:3px solid ${scoreColor};background:${scoreBg};display:flex;flex-direction:column;align-items:center;justify-content:center">
+          <div style="font-size:18px;font-weight:800;color:${scoreColor}">${a.score !== null ? a.score : 'N/R'}</div>
+        </div>
+        <div style="font-size:9px;color:var(--muted);margin-top:2px">${a.scoreSource || 'Charity Navigator'}</div>
+      </div>
+    </div>`;
+    // Financials table
+    content += `<div style="font-size:11px;font-weight:700;color:var(--text);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px;border-bottom:2px solid #2563eb;display:inline-block;padding-bottom:2px">Financials</div>`;
+    content += `<table style="width:100%;font-size:12px;border-collapse:collapse;margin-bottom:14px">`;
+    a.financials.forEach((f, i) => {
+      const bg = i % 2 === 0 ? 'var(--bg)' : 'transparent';
+      const pill = f.rating ? `<span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;background:${f.ratingColor === 'green' ? '#dcfce7' : f.ratingColor === 'red' ? '#fee2e2' : '#fef9c3'};color:${f.ratingColor === 'green' ? '#166534' : f.ratingColor === 'red' ? '#991b1b' : '#854d0e'}">${f.rating}</span>` : '';
+      content += `<tr style="background:${bg}"><td style="padding:5px 8px;color:var(--muted)">${f.metric}</td><td style="padding:5px 8px;font-weight:700">${f.value}</td><td style="padding:5px 8px">${pill}</td></tr>`;
+    });
+    content += `</table>`;
+    // Leadership
+    content += `<div style="font-size:11px;font-weight:700;color:var(--text);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px;border-bottom:2px solid #2563eb;display:inline-block;padding-bottom:2px">Leadership</div>`;
+    content += `<table style="width:100%;font-size:12px;border-collapse:collapse;margin-bottom:14px">`;
+    a.leaders.forEach((l, i) => {
+      const bg = i % 2 === 0 ? 'var(--bg)' : 'transparent';
+      content += `<tr style="background:${bg}"><td style="padding:4px 8px;font-weight:600">${l.name}</td><td style="padding:4px 8px;color:var(--muted)">${l.role}</td><td style="padding:4px 8px;font-weight:700">${l.comp}</td></tr>`;
+    });
+    content += `</table>`;
+    if (a.leaderNote) content += `<div style="font-size:11px;color:var(--muted);margin-bottom:14px">${a.leaderNote}</div>`;
+    // Governance
+    if (a.governance) {
+      content += `<div style="font-size:11px;font-weight:700;color:var(--text);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px;border-bottom:2px solid #2563eb;display:inline-block;padding-bottom:2px">Governance</div>`;
+      content += `<div style="display:flex;flex-wrap:wrap;gap:4px 12px;margin-bottom:10px">`;
+      a.governance.forEach(g => content += `<span style="font-size:11px;color:#166534">✓ ${g}</span>`);
+      content += `</div>`;
+    }
+    // Red flags
+    if (a.redflags) {
+      const rfBg = a.redflagLevel === 'clean' ? '#dcfce7' : a.redflagLevel === 'warning' ? '#fee2e2' : '#fef3c7';
+      const rfBorder = a.redflagLevel === 'clean' ? '#16a34a' : a.redflagLevel === 'warning' ? '#dc2626' : '#d97706';
+      content += `<div style="border-left:4px solid ${rfBorder};background:${rfBg};border-radius:8px;padding:10px 12px;font-size:12px;margin-bottom:14px">${a.redflags}</div>`;
+    }
+    // Verdict
+    if (a.verdict) {
+      content += `<div style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-size:12px;line-height:1.6">${a.verdict}</div>`;
+    }
+    content += `<div style="font-size:9px;color:var(--muted);margin-top:8px">${a.sources || ''}</div>`;
+    content += `</div>`;
   } else if (r.updatePdf) {
     content += `<div class="update-box" style="max-height:none;overflow:visible">
       <h3>📋 Latest Update</h3>
