@@ -131,7 +131,7 @@
     <div style="font-size:48px;margin-bottom:16px;">✝️</div>
     <h2 style="color:#0f172a;margin-bottom:8px;">Giving Dashboard</h2>
     <p style="color:#64748b;font-size:14px;margin-bottom:24px;">Enter password to continue</p>
-    <p style="color:#94a3b8;font-size:12px;margin-bottom:16px;">Hint: The King we serve (one word, lowercase)</p>
+    <p style="color:#94a3b8;font-size:12px;margin-bottom:16px;">Hint: The hanging King's last word...</p>
     <input id="pwInput" type="password" placeholder="Password" autofocus
       style="width:100%;padding:12px 16px;border:2px solid #e2e8f0;border-radius:10px;font-size:16px;outline:none;text-align:center;margin-bottom:12px;"
       onkeydown="if(event.key==='Enter')checkPw()">
@@ -146,7 +146,7 @@
 function checkPw() {
   const pw = document.getElementById('pwInput').value;
   // Simple hash check (not crypto-secure, but blocks casual access)
-  if (simpleHash(pw) === 'abcdff') {
+  if (simpleHash(pw) === 'd8c072') {
     document.getElementById('lockScreen').style.display = 'none';
     sessionStorage.setItem('giving_auth', '1');
   } else {
