@@ -594,8 +594,7 @@ function renderCard(r) {
       <div style="text-align:right">
         <div style="font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px;">${r.potentialLabel || 'Potential'}</div>
         <div class="card-amount" style="color:#ec4899;">${r.potentialAmount || r.amount || 'TBD'}</div>
-        ${r.lastUpdate ? `<div class="card-update">Updated: ${r.lastUpdate}</div>` : ''}
-        <div class="click-hint">Click for ${r.type === 'org' ? 'audit' : 'details'} →</div>
+        <div style="font-size:11px; color:var(--accent); margin-top:4px; cursor:pointer;">Click for details</div>
       </div>
     </div>
   `;
