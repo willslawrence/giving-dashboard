@@ -229,7 +229,7 @@ const allManualRecipients = [
     lastUpdate: "1/21/2026",
     score: null,
     updateText: "January 21, 2026 — Training session in the new gym focused on fitness training, addressing children's fears and building safety. One child (K.) showed severe fear and lack of security — stayed near the exit, doesn't speak, communicates by screaming. Coach worked gradually on his fear of the treadmill. With continuous encouragement, K. went from being too afraid to approach it to walking at speed level 4 (¼ max speed) by session end. Significant breakthrough. Sessions focus on confronting fears safely while building trust in the new environment.",
-    updatePdf: "audits/Hope_Village_January_2026.pdf"
+    updatePdf: null
   },
   {
     name: "Stan and Tasha",
@@ -267,6 +267,7 @@ const allManualRecipients = [
     stats: { programs: "Not rated yet", ceoPay: "Not available", revenue: "$5.75M" },
     audit: {
       ein: "27-2343084", location: "Founded by David Platt", score: null, scoreSource: "Insufficient data",
+      mission: "The Great Commission, full stop. David Platt's core message: the American church is called to sacrifice for the unreached. Secret Church events raise millions for Bible translation and persecuted believers. One of the strongest voices for global missions in the evangelical world.",
       financials: [
         {metric:"Revenue",value:"$5.75M"},{metric:"Expenses",value:"$3.69M"},
         {metric:"Total Assets",value:"$3.52M"},{metric:"Liabilities",value:"$596K (16.9%)",rating:"Moderate",ratingColor:"amber"},
@@ -300,7 +301,8 @@ const allManualRecipients = [
     scoreLabel: "100",
     stats: { programs: "90¢ per $1 to programs", ceoPay: "$0.03 to raise $1", revenue: "$5.88M" },
     audit: {
-      ein: "30-0060905", location: "St. Louis, MO · Founded 2002", score: 100, scoreSource: "Charity Navigator FY2024",
+      ein: "30-0060905", location: "St. Louis, MO · Founded 2002 · ECFA Accredited", score: 100, scoreSource: "Charity Navigator FY2024",
+      mission: '"Saving Lives, Saving Souls & Changing Futures." Explicitly Gospel-centered — meeting physical needs as a vehicle for sharing the Gospel. Pat Bradley (founder) is an outspoken believer. Partnered with Francis Chan / Crazy Love for mission trips. Faith-driven at the core.',
       financials: [
         {metric:"Program Expense Ratio",value:"90.25%",rating:"Excellent",ratingColor:"green"},
         {metric:"Fundraising Efficiency",value:"$0.03 to raise $1",rating:"Excellent",ratingColor:"green"},
@@ -335,7 +337,8 @@ const allManualRecipients = [
     scoreLabel: "100",
     stats: { programs: "93¢ per $1 to programs", ceoPay: "$0.04 to raise $1", revenue: "$42.8M" },
     audit: {
-      ein: "35-1902841", location: "Gridley, IL · Founded 2003", score: 100, scoreSource: "Charity Navigator FY2024",
+      ein: "35-1902841", location: "Gridley, IL · Founded 2003 · ECFA Accredited", score: 100, scoreSource: "Charity Navigator FY2024",
+      mission: 'James 1:27 in action. "Bringing JOY and PURPOSE to orphans" through Christ. Every care center includes discipleship. They partner with indigenous church leaders. Orphan care IS their method of Gospel outreach. Also facilitates domestic adoption through local churches.',
       financials: [
         {metric:"Program Expense Ratio",value:"93.20%",rating:"Excellent",ratingColor:"green"},
         {metric:"Fundraising Efficiency",value:"$0.04 to raise $1",rating:"Excellent",ratingColor:"green"},
@@ -371,6 +374,7 @@ const allManualRecipients = [
     stats: { programs: "Not public", ceoPay: "Not public", revenue: "Under NAMB" },
     audit: {
       ein: "75-1977130", location: "Alpharetta, GA · SBC Ministry", score: null, scoreSource: "Church entity — exempt",
+      mission: '"Meeting needs and changing lives in Jesus\' name." Operates through the SBC\'s missionary infrastructure — the largest Protestant missions network in the world. Every relief project connects to local church partnerships and Gospel proclamation. IMB supports 3,500+ missionaries globally.',
       financials: [
         {metric:"Public IRS Form 990",value:"N/A — church exemption",rating:"Cannot verify",ratingColor:"amber"},
         {metric:"Revenue",value:"Embedded in NAMB financials",rating:"No breakout",ratingColor:"amber"},
@@ -405,7 +409,8 @@ const allManualRecipients = [
     scoreLabel: "75",
     stats: { programs: "60¢ per $1 to programs", ceoPay: "$0.23 to raise $1", revenue: "$9.11M" },
     audit: {
-      ein: "92-1154296", location: "Santa Ana, CA · Founded 1955", score: 75, scoreSource: "Charity Navigator FY2024",
+      ein: "92-1154296", location: "Santa Ana, CA · Founded 1955 · ECFA Accredited", score: 75, scoreSource: "Charity Navigator FY2024",
+      mission: "Strengthening persecuted Christians worldwide. The World Watch List is the gold standard for tracking Christian persecution globally. Explicitly evangelical — faith is core to their identity. Brother Andrew's legacy of smuggling Bibles behind the Iron Curtain lives on.",
       financials: [
         {metric:"Program Expense Ratio",value:"60%",rating:"Below Average",ratingColor:"amber"},
         {metric:"Fundraising Efficiency",value:"$0.23 to raise $1",rating:"High Cost",ratingColor:"red"},
@@ -441,6 +446,7 @@ const allManualRecipients = [
     stats: { programs: "Not rated yet", ceoPay: "Not available", revenue: "$33.6M" },
     audit: {
       ein: "23-7275342", location: "Santa Ana, CA · Rebranded Jan 2023", score: null, scoreSource: "Insufficient data",
+      mission: "The persecuted church IS the mission. GCR continues the legacy of smuggling Bibles into closed countries and strengthening believers under persecution. Frontline kingdom work in the hardest places on earth. The mission is deeply valuable — the question is whether this organization is the best vehicle for it.",
       financials: [
         {metric:"Revenue",value:"$33.6M"},{metric:"Expenses",value:"$28.8M"},
         {metric:"Total Assets",value:"$12.2M"},{metric:"Liabilities",value:"$2.88M (23.6%)",rating:"Notable",ratingColor:"amber"},
@@ -654,6 +660,11 @@ function openModal(r) {
         <div style="font-size:9px;color:var(--muted);margin-top:2px">${a.scoreSource || 'Charity Navigator'}</div>
       </div>
     </div>`;
+    // Mission & Outreach
+    if (a.mission) {
+      content += `<div style="font-size:11px;font-weight:700;color:var(--text);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px;border-bottom:2px solid #2563eb;display:inline-block;padding-bottom:2px">Mission & Outreach</div>`;
+      content += `<div style="background:linear-gradient(135deg,#eff6ff,#dbeafe);border-left:4px solid #2563eb;border-radius:8px;padding:10px 12px;font-size:12px;line-height:1.6;color:#1e40af;margin-bottom:14px">${a.mission}</div>`;
+    }
     // Financials table
     content += `<div style="font-size:11px;font-weight:700;color:var(--text);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px;border-bottom:2px solid #2563eb;display:inline-block;padding-bottom:2px">Financials</div>`;
     content += `<table style="width:100%;font-size:12px;border-collapse:collapse;margin-bottom:14px">`;
