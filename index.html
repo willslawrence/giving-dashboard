@@ -509,7 +509,7 @@ const allManualRecipients = [
     scoreLabel: "N/A",
     givenLabel: "Year to Date Received",
     potentialLabel: "Year to Date Expenses",
-    stats: { programs: "70% to external", ceoPay: "$0.00 to raise $1", revenue: "SAR 26,800 / 8,200" }
+    stats: { programs: "70% to external", revenue: "SAR 26,800 / 8,200" }
   },
   {
     name: "Big Projector",
@@ -632,7 +632,7 @@ function openModal(r) {
   if (r.type === 'org' && r.stats) {
     content += `<div class="modal-stats">
       <div class="modal-stat"><div class="stat-label">$ to Mission</div><div class="stat-value">${r.stats.programs}</div></div>
-      <div class="modal-stat"><div class="stat-label">Fundraiser Efficiency</div><div class="stat-value">${r.stats.ceoPay}</div></div>
+      ${r.stats.ceoPay ? `<div class="modal-stat"><div class="stat-label">Fundraiser Efficiency</div><div class="stat-value">${r.stats.ceoPay}</div></div>` : ''}
       <div class="modal-stat"><div class="stat-label">Revenue</div><div class="stat-value">${r.stats.revenue}</div></div>
     </div>`;
   }
