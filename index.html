@@ -143,8 +143,8 @@
 </div>
 <script>
 function checkPw() {
-  const pw = document.getElementById('pwInput').value;
-  // Simple hash check (not crypto-secure, but blocks casual access)
+  const pw = document.getElementById('pwInput').value.toLowerCase();
+  // Case-insensitive simple hash check (not crypto-secure, but blocks casual access)
   if (simpleHash(pw) === 'd8c072') {
     document.getElementById('lockScreen').style.display = 'none';
     sessionStorage.setItem('giving_auth', '1');
