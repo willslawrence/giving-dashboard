@@ -497,7 +497,8 @@ const allManualRecipients = [
     amountNum: 281,
     frequency: "New — One-time gift",
     description: "A rechargeable vibrating sensory ball with textured ridges and 3 intensity levels. Great for proprioception, muscle relaxation, and focus. 9cm diameter, silicone rubber, USB rechargeable.",
-    link: "https://www.google.com/search?q=vibrating+ball+special+needs+toys",
+    link: "https://specialneedstoys.com/can/proprioception/vibrating-ball.html",
+    link2: "https://www.google.com/search?q=vibrating+ball+special+needs+toys",
     lastUpdate: "Feb 2026",
     score: null,
     updateText: "<strong>Ridgy Vibrating Ball — TFH Sensory Specialists</strong><br><br>A handheld textured silicone ball with 3 vibration levels (2,650–3,700 RPM). Designed for sensory exploration, proprioception, and calming.<br><br><strong>Key features:</strong><br>• Textured ridges for tactile feedback<br>• 3 adjustable vibration intensities<br>• Rechargeable via micro USB<br>• Auto-off feature<br>• 9 cm diameter, 14 oz<br><br><strong>Benefits:</strong> Muscle relaxation, deep tissue relief, improved body awareness, focus and engagement, pain management. Great for sensory room setups or standalone use."
@@ -638,6 +639,9 @@ function openModal(r) {
   
   if (r.link) {
     content += `<a class="modal-link" href="${r.link}" target="_blank">${r.link} ↗</a>`;
+  }
+  if (r.link2) {
+    content += `<a class="modal-link" href="${r.link2}" target="_blank">${r.link2} ↗</a>`;
   }
   
   if (r.type === 'org' && r.stats) {
