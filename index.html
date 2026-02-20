@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Giving Dashboard</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --card: #ffffff;
+    --card-hover: #f0f2f8;
+    --border: #e2e5ed;
+    --text: #1a1a2e;
+    --muted: #6b7185;
+    --accent: #3b82f6;
+    --green: #16a34a;
+    --orange: #d97706;
+    --red: #dc2626;
+    --purple: #7c3aed;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; padding: 24px; }
+  
+  .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+  .header h1 { font-size: 24px; font-weight: 700; }
+  .header .total { font-size: 14px; color: var(--muted); text-align: right; }
+  .header .total span { color: var(--green); font-size: 20px; font-weight: 700; }
+  
+  .section { margin-bottom: 32px; }
+  .section-header { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .section-title { font-size: 16px; font-weight: 600; }
+  .section-line { flex: 1; height: 1px; background: var(--border); }
+  .section-count { font-size: 12px; color: var(--muted); background: var(--card); padding: 3px 10px; border-radius: 10px; border: 1px solid var(--border); }
+  
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+  
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; cursor: pointer; transition: all 0.2s; position: relative; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+  .card:hover { background: var(--card-hover); border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+  .card.cat-church { border-left: 3px solid #60a5fa; }
+  .card.cat-orphan { border-left: 3px solid #facc15; }
+  .card.cat-persecuted { border-left: 3px solid #f97316; }
+  .card.cat-word { border-left: 3px solid #166534; }
+  .card.cat-local { border-left: 3px solid #4ade80; }
+  .card.cat-global { border-left: 3px solid #1e40af; }
+  .card.cat-church { background: linear-gradient(135deg, var(--card) 90%, rgba(96,165,250,0.06)); }
+  .card.cat-orphan { background: linear-gradient(135deg, var(--card) 90%, rgba(250,204,21,0.06)); }
+  .card.cat-persecuted { background: linear-gradient(135deg, var(--card) 90%, rgba(249,115,22,0.06)); }
+  .card.cat-word { background: linear-gradient(135deg, var(--card) 90%, rgba(22,101,52,0.06)); }
+  .card.cat-local { background: linear-gradient(135deg, var(--card) 90%, rgba(74,222,128,0.06)); }
+  .card.cat-global { background: linear-gradient(135deg, var(--card) 90%, rgba(30,64,175,0.06)); }
+  .status-tag { font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; display: inline-block; margin-bottom: 6px; }
+  .status-tag.given { background: rgba(59,130,246,0.15); color: #60a5fa; }
+  .status-tag.new { background: rgba(236,72,153,0.15); color: #ec4899; }
+  .cat-tag { font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; display: inline-block; margin-bottom: 6px; }
+  .cat-tag.cat-tag-church { background: rgba(96,165,250,0.15); color: #60a5fa; }
+  .cat-tag.cat-tag-orphan { background: rgba(250,204,21,0.15); color: #d4a017; }
+  .cat-tag.cat-tag-persecuted { background: rgba(249,115,22,0.15); color: #f97316; }
+  .cat-tag.cat-tag-word { background: rgba(22,101,52,0.15); color: #22c55e; }
+  .cat-tag.cat-tag-local { background: rgba(74,222,128,0.15); color: #4ade80; }
+  .cat-tag.cat-tag-global { background: rgba(30,64,175,0.15); color: #6088e0; }
+  
+  .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+  .card-img { width: 100%; height: 120px; border-radius: 8px; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #eef0f5; }
+  .card-img img { max-width: 100%; max-height: 100%; object-fit: contain; }
+  .card-img svg { width: 100%; height: 100%; }
+  .card-top-left { display: flex; align-items: flex-start; flex: 1; min-width: 0; }
+  .card-name { font-size: 16px; font-weight: 600; }
+  .card-badge { font-size: 10px; padding: 3px 8px; border-radius: 10px; font-weight: 600; text-transform: uppercase; }
+  .badge-org { background: rgba(59,130,246,0.15); color: var(--accent); }
+  .badge-person { background: rgba(168,85,247,0.15); color: var(--purple); }
+  .badge-potential { background: rgba(245,158,11,0.15); color: var(--orange); }
+  .badge-need { background: rgba(239,68,68,0.15); color: var(--red); }
+  .badge-past { background: rgba(139,143,163,0.1); color: var(--muted); }
+  .badge-given { background: rgba(96,165,250,0.15); color: #60a5fa; }
+  .badge-new { background: rgba(236,72,153,0.15); color: #ec4899; }
+  
+  .card-category { font-size: 11px; color: var(--muted); margin-bottom: 8px; display: flex; gap: 8px; align-items: center; }
+  .card-category .dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+  .dot-church { background: #60a5fa; }
+  .dot-orphan { background: #facc15; }
+  .dot-persecuted { background: #f97316; }
+  .dot-special { background: #1e40af; }
+  .dot-relief { background: var(--red); }
+  .dot-word { background: #166534; }
+  .dot-local { background: #4ade80; }
+  .dot-global { background: #1e40af; }
+  
+  .card-desc { font-size: 12px; color: var(--muted); line-height: 1.5; margin-bottom: 12px; }
+  
+  .card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 10px; }
+  .card-amount { font-size: 18px; font-weight: 700; }
+  .card-amount.zero { color: var(--muted); font-size: 14px; }
+  .card-freq { font-size: 11px; color: var(--muted); }
+  .card-update { font-size: 10px; color: var(--muted); }
+  
+  .card-score { position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; }
+  .score-green { background: rgba(22,163,74,0.1); color: var(--green); border: 2px solid var(--green); }
+  .score-yellow { background: rgba(217,119,6,0.1); color: var(--orange); border: 2px solid var(--orange); }
+  .score-red { background: rgba(220,38,38,0.1); color: var(--red); border: 2px solid var(--red); }
+  .score-na { background: rgba(107,113,133,0.08); color: var(--muted); border: 2px solid var(--border); font-size: 9px; }
+  
+  .click-hint { font-size: 10px; color: var(--accent); opacity: 0; transition: opacity 0.2s; }
+  .card:hover .click-hint { opacity: 1; }
+
+  /* Modal */
+  .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.4); z-index: 100; align-items: center; justify-content: center; }
+  .modal-overlay.show { display: flex; }
+  .modal { background: var(--card); border: 1px solid var(--border); border-radius: 16px; width: 90%; max-width: 700px; max-height: 85vh; overflow-y: auto; padding: 28px; position: relative; }
+  .modal-close { position: absolute; top: 12px; right: 16px; background: none; border: none; color: var(--muted); font-size: 24px; cursor: pointer; }
+  .modal-close:hover { color: var(--text); }
+  .modal h2 { font-size: 20px; margin-bottom: 4px; }
+  .modal .modal-sub { color: var(--muted); font-size: 12px; margin-bottom: 16px; }
+  .modal .modal-desc { font-size: 13px; line-height: 1.6; margin-bottom: 16px; color: var(--text); }
+  .modal .modal-link { color: var(--accent); text-decoration: none; font-size: 12px; }
+  .modal .modal-link:hover { text-decoration: underline; }
+  .modal .audit-frame { width: 100%; height: 500px; border: 1px solid var(--border); border-radius: 8px; margin-top: 12px; }
+  .modal .update-box { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin-top: 12px; }
+  .modal .update-box h3 { font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+  .modal .update-box p { font-size: 13px; line-height: 1.6; white-space: pre-wrap; word-wrap: break-word; }
+  .modal-stats { display: flex; gap: 16px; margin-bottom: 16px; }
+  .modal-stat { background: var(--bg); border-radius: 8px; padding: 10px 14px; flex: 1; }
+  .modal-stat .stat-label { font-size: 10px; color: var(--muted); text-transform: uppercase; }
+  .modal-stat .stat-value { font-size: 16px; font-weight: 700; margin-top: 2px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h1>✝️ Giving Dashboard</h1>
+    <div style="font-size:12px; color:var(--muted); margin-top:4px;">Will's giving tracker — click any card for details</div>
+  </div>
+  <div class="total">
+    Total Given<br>
+    <span id="totalGiven">SAR —</span>
+  </div>
+</div>
+
+<div id="allSection" class="section"></div>
+
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" id="modal"></div>
+</div>
+
+<script>
+// Logo images — real PNGs for orgs, styled SVGs for people
+const logos = {
+  // Real org logos (base64 PNGs from favicons)
+  radical: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAACoCAMAAABt9SM9AAAAe1BMVEUSEhLw8PAAAAD39/f29vb6+voODg6JiYnz8/Pk5OQYGBi5ubkEBAQICAitra1OTk5AQEDMzMzAwMDZ2dlYWFjb29uenp59fX2zs7MvLy+NjY01NTWYmJirq6vp6elDQ0MhISFxcXFdXV14eHgoKCg6OjppaWnJyclaWlprYRoRAAAEQUlEQVR4nO3Z63KyOhQGYLOSQBDwVEVUPNbDvv8r3CsJAbTaGf/0w5n3mekMEkjL2yQkcTAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAvqPf/es/r1dotEte2y2RVgelyrwmY4TVQakRrymE1YWw3oCw3oCw3lCHZWSHVgjrKR+WmVLUyFdr9SSsKGtFd1V0ZmO5L8+bC/i4qSB/vJmoLXyotJeehBXltFc/wooO49ahfcoBzeNjuCqf+PJJVOeQ8bE74ESHe1+4CalQHG/ytvZV79Nqwro/W6jHsLK57phuQkFEQupx/YmmdblMRhN7jrS+kb3olO7CvUW4eM31hOP/tF73vst3woo6q5yN/hHWWAsVntcYMYhCBUqYhPynEJaUSrlQSJkZcc0zbRQPht2w8jP/Q3S9RKC5/IAJcBtWNFx8tcyTsFS1mTjj1Mi6HXCTsK+HEMDFle9P8VQLm4oPi27SyHQ537vCVQiWIxdm6D59Xli6s9D5MWbZsGLKHSKlSlcS0c7IM/9cMneVL8+4bZ6U0OfchUVXbXYbPudL66y+tUqPWs1cPR8YlptCNPOGZ2HVrlL5tkRbKSsbxtfjk9JacevzYc2Mnj+UR7kwxrYufXVj2weGJafLa7UzL8ISSd1HF1Jo9x6jvbbjlU3j8VHzjVajOizu1D+yTBXfkl00F0UfGZbZunYzfTYpdQO8nbJyH1VSXX3DWhi9t7fwpYf8ruJ8pbmrvgqLTpp/J6t8h/7AsIQ8urfi9MmklMMys6qqtpxZccx9VmspkqooiooH69vD7GMpVdV2w8ldKQ91wpSFvdMI20U/MSyh79N6NmZV3B2H7nS+kmGhxG8Efew8bETDndCTzIe1dM2oM+ekLc83lL/TTTw+Miyhv31a8llYbrpABb/bDu6I21OzqcrVcBzNbnTMKab11CHi3qqSY7tVTdylRbMbayceNqxl73ez67C+QlghrZt8FdaARpzWMBvUDaa2VSolKv1cLeEWw7PzqJ5n5eeEJ1rKvx8W/I5MjD6FGzNulBMOSySLxrafadW7DnqT1WE1aakfYYUFCaVa7g7ZQSod1nZ21aN4FnDTYeciid1bTms7kcqoEE1JwW1TzpqKKdZywXNbpdptj1mvw+KmRQMflk0r58X0zdyFlV/K8hpWcsWorGhZlp3vM+hajgpalyOriPe+K1FZuoR5KXVab11ZeaRyVJ47ew/bUTqe+Bu9sqfDV9j8M8n3pQ5L6O2FDtXjFk3eGUr8yHM/tjTnfOdqz/qDzsrTHkb3d9pVQf+/gWt2So0MWXFG2vgNQGz+3cG28hsQ1hsQ1hsQ1ht+D+sDliB/iWZavvYB++J/KRr+atD7b1z+VPS7f/3nAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/Kn/ARjmQLt/LjqVAAAAAElFTkSuQmCC',
+  sendRelief: 'data:image/png;base64,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',
+  lifesong: 'data:image/png;base64,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',
+  gcr: 'data:image/png;base64,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',
+  
+  // Cartoon-style SVGs for people/projects (matching PDF aesthetic)
+  hopeVillage: `data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><defs><linearGradient id="hv" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4a7c3f"/><stop offset="100%" stop-color="#2d5a27"/></linearGradient></defs><rect width="120" height="120" rx="16" fill="url(#hv)"/><circle cx="60" cy="42" r="22" fill="#fff" opacity="0.15"/><text x="60" y="50" text-anchor="middle" font-size="32">⚽</text><text x="60" y="78" text-anchor="middle" font-size="11" font-weight="bold" fill="#c8e6c0" font-family="sans-serif">HOPE</text><text x="60" y="94" text-anchor="middle" font-size="9" fill="#a8d4a0" font-family="sans-serif">VILLAGE</text><text x="60" y="110" text-anchor="middle" font-size="7" fill="#8bc48070" font-family="sans-serif">Alexandria, Egypt</text></svg>')}`,
+  
+  stanTasha: `data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><defs><linearGradient id="st" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2a4a7a"/><stop offset="100%" stop-color="#1a3058"/></linearGradient></defs><rect width="120" height="120" rx="16" fill="url(#st)"/><circle cx="45" cy="40" r="12" fill="#f5d6b8"/><circle cx="75" cy="40" r="12" fill="#f5d6b8"/><rect x="35" y="52" width="20" height="24" rx="4" fill="#3b7dd8"/><rect x="65" y="52" width="20" height="24" rx="4" fill="#48a866"/><circle cx="45" cy="36" r="14" fill="none" stroke="#5c3a1e" stroke-width="3"/><circle cx="75" cy="36" r="14" fill="none" stroke="#3a2010" stroke-width="3"/><text x="60" y="96" text-anchor="middle" font-size="9" font-weight="bold" fill="#93b8e8" font-family="sans-serif">STAN &amp; TASHA</text><text x="60" y="110" text-anchor="middle" font-size="7" fill="#7ba0d070" font-family="sans-serif">Tajikistan</text></svg>')}`,
+  
+  joseph: `data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><defs><linearGradient id="jj" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#5a3080"/><stop offset="100%" stop-color="#3a1860"/></linearGradient></defs><rect width="120" height="120" rx="16" fill="url(#jj)"/><circle cx="60" cy="42" r="16" fill="#d4a574"/><rect x="45" y="58" width="30" height="28" rx="6" fill="#f0f0f0"/><circle cx="55" cy="39" r="2" fill="#333"/><circle cx="65" cy="39" r="2" fill="#333"/><path d="M56 45 Q60 49 64 45" fill="none" stroke="#333" stroke-width="1.5"/><ellipse cx="60" cy="30" rx="18" ry="8" fill="#2a1a10" opacity="0.8"/><text x="60" y="100" text-anchor="middle" font-size="9" font-weight="bold" fill="#c4a0e8" font-family="sans-serif">JOYFUL JOSEPH</text><text x="60" y="113" text-anchor="middle" font-size="7" fill="#a080c870" font-family="sans-serif">Ministry Trainee</text></svg>')}`,
+  
+  crisisAid: `data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><defs><linearGradient id="ca" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#b82020"/><stop offset="100%" stop-color="#8b1a1a"/></linearGradient></defs><rect width="120" height="120" rx="16" fill="url(#ca)"/><rect x="52" y="20" width="16" height="50" rx="3" fill="#fff"/><rect x="35" y="37" width="50" height="16" rx="3" fill="#fff"/><text x="60" y="92" text-anchor="middle" font-size="8" font-weight="bold" fill="#ffb3b3" font-family="sans-serif">CRISIS AID</text><text x="60" y="106" text-anchor="middle" font-size="7" fill="#ff9090" font-family="sans-serif">INTERNATIONAL</text></svg>')}`,
+  
+  danielBall: 'daniel-ball.jpg',
+  
+  projector: `data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><defs><linearGradient id="pj" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4a4530"/><stop offset="100%" stop-color="#2a2818"/></linearGradient></defs><rect width="120" height="120" rx="16" fill="url(#pj)"/><rect x="25" y="35" width="70" height="40" rx="8" fill="#555040"/><circle cx="50" cy="55" r="14" fill="#333" stroke="#888" stroke-width="2"/><circle cx="50" cy="55" r="8" fill="#6a9fd8" opacity="0.6"/><rect x="78" y="42" width="12" height="8" rx="2" fill="#333" stroke="#888" stroke-width="1"/><rect x="40" y="75" width="8" height="12" rx="2" fill="#555040"/><rect x="72" y="75" width="8" height="12" rx="2" fill="#555040"/><text x="60" y="104" text-anchor="middle" font-size="9" font-weight="bold" fill="#d4c890" font-family="sans-serif">PROJECTOR</text></svg>')}`,
+};
+
+
+const currentRecipients = [];
+
+const pastRecipients = [];
+
+// All recipients in one array, grouped by category
+const allManualRecipients = [
+  // ── CHURCH PLANTING ──
+  {
+    name: "Hope Village",
+    image: 'img/hope-village.png',
+    status: "given",
+    type: "person",
+    category: "church",
+    categoryLabel: "Church Planting",
+    amount: "SAR 3,000",
+    amountNum: 3000,
+    frequency: "Given",
+    description: "Using sports for outreach into a special needs school in Alexandria, Egypt. We sponsor one session per week with a Spartans Academy coach, working with children who have special needs — building trust, confronting fears, and creating safe environments through fitness and play.",
+    link: "https://www.facebook.com/SpartansAcademy/",
+    lastUpdate: "1/21/2026",
+    score: null,
+    updateText: "January 21, 2026 — Training session in the new gym focused on fitness training, addressing children's fears and building safety. One child (K.) showed severe fear and lack of security — stayed near the exit, doesn't speak, communicates by screaming. Coach worked gradually on his fear of the treadmill. With continuous encouragement, K. went from being too afraid to approach it to walking at speed level 4 (¼ max speed) by session end. Significant breakthrough. Sessions focus on confronting fears safely while building trust in the new environment.",
+    updatePdf: "audits/Hope_Village_January_2026.pdf"
+  },
+  {
+    name: "Stan and Tasha",
+    image: 'img/stan-tasha.png',
+    status: "given",
+    type: "person",
+    category: "church",
+    categoryLabel: "Church Planting",
+    amount: "SAR 3,000",
+    amountNum: 3000,
+    potentialAmount: "A little",
+    frequency: "Given",
+    description: "Church planting in Tajikistan as part of a church centred ministry. Engaging Tajiks through English as second language classes, sports clubs, and in regular life as well as being involved in discipleship in the Tajik church.",
+    link: "",
+    lastUpdate: "Feb 2026",
+    score: null,
+    updateText: "Hey everyone, thank you so much for praying for our 'outreach week' at our language centre. God was very gracious to answer our prayers. Two new students (brothers) agreed to read the Bible with us. We began reading Genesis 1-3 with them last week. Please pray God would open their eyes to the truth of his way of salvation!<br><br>They're church planting in Tajikistan, engaging Tajiks through ESL classes, sports clubs, and discipleship. They only need a little for this next round of giving."
+  },
+  {
+    name: "Radical",
+    image: 'img/radical.png',
+    status: "given",
+    type: "org",
+    category: "church",
+    categoryLabel: "Church Planting",
+    amount: "SAR 10,000",
+    amountNum: 10000,
+    potentialAmount: "SAR 5,600",
+    frequency: "Given",
+    description: "Founded by David Platt equipping Christians for global mission. Focuses on helping believers grow, go, and give to make Jesus known everywhere, especially unreached areas. Teaching/mobilization ministry.",
+    link: "https://radical.net",
+    lastUpdate: "",
+    score: null,
+    scoreLabel: "N/R",
+    auditPdf: "audits/Radical_Audit.pdf",
+    stats: { programs: "Not rated yet", ceoPay: "Not available", revenue: "$5.75M" }
+  },
+  // ── ORPHANS, WIDOWS & SOJOURNERS ──
+  {
+    name: "Crisis Aid International",
+    image: 'img/crisis-aid.png',
+    status: "new",
+    type: "org",
+    category: "orphan",
+    categoryLabel: "Orphans, Widows & Sojourners",
+    amount: "TBD",
+    amountNum: 0,
+    potentialAmount: "SAR 5,600",
+    frequency: "New",
+    description: "Provides hunger relief (117M+ meals), clean water (52+ wells), medical care (833K+ recipients), anti-trafficking rescue (3,200+ victims), and emergency disaster relief across 12 countries. Connected to Francis Chan / Crazy Love.",
+    link: "https://crisisaid.org",
+    lastUpdate: "",
+    score: 100,
+    scoreLabel: "100",
+    auditPdf: "audits/Crisis_Aid_Audit.pdf",
+    stats: { programs: "90¢ per $1 to programs", ceoPay: "$0.03 to raise $1", revenue: "$5.88M" }
+  },
+  {
+    name: "Lifesong for Orphans",
+    image: 'img/lifesong.png',
+    status: "given",
+    type: "org",
+    category: "orphan",
+    categoryLabel: "Orphans, Widows & Sojourners",
+    amount: "SAR 10,000",
+    amountNum: 10000,
+    potentialAmount: "SAR 5,600",
+    frequency: "Given",
+    description: "Mobilizes the Church to bring joy and purpose to orphans through Gospel-centered care. Supports adoption grants/loans, foster initiatives, and global orphan ministries in 16 countries so vulnerable children experience family and holistic provision.",
+    link: "https://lifesong.org",
+    lastUpdate: "",
+    score: 100,
+    scoreLabel: "100",
+    auditPdf: "audits/Lifesong_Audit.pdf",
+    stats: { programs: "93¢ per $1 to programs", ceoPay: "$0.04 to raise $1", revenue: "$42.8M" }
+  },
+  {
+    name: "Send Relief",
+    image: 'img/send-relief.png',
+    status: "given",
+    type: "org",
+    category: "orphan",
+    categoryLabel: "Orphans, Widows & Sojourners",
+    amount: "SAR 10,000",
+    amountNum: 10000,
+    potentialAmount: "SAR 5,600",
+    frequency: "Given",
+    description: "Southern Baptist global compassion ministry (NAMB/IMB partnership) equipping churches to meet tangible needs and share the gospel. Responds to crises, disasters, refugees, trafficking, and community service from neighborhoods to nations.",
+    link: "https://sendrelief.org",
+    lastUpdate: "",
+    score: null,
+    scoreLabel: "N/R",
+    auditPdf: "audits/Send_Relief_Audit.pdf",
+    stats: { programs: "Not public", ceoPay: "Not public", revenue: "Under NAMB" }
+  },
+  // ── PERSECUTED CHURCH ──
+  {
+    name: "Open Doors International",
+    image: 'img/open-doors.png',
+    status: "new",
+    type: "org",
+    category: "persecuted",
+    categoryLabel: "Persecuted Church",
+    amount: "TBD",
+    amountNum: 0,
+    potentialAmount: "SAR 5,600",
+    frequency: "New",
+    description: "Founded in 1955 by Brother Andrew ('God's Smuggler'). Strengthens and equips persecuted Christians in 70+ countries through Bible distribution, church leader training, emergency relief, and the annual World Watch List — the gold standard for tracking Christian persecution globally.",
+    link: "https://opendoorsus.org",
+    lastUpdate: "Feb 2026",
+    score: 75,
+    scoreLabel: "75",
+    auditPdf: "audits/Open_Doors_Audit.pdf",
+    stats: { programs: "60¢ per $1 to programs", ceoPay: "$0.23 to raise $1", revenue: "$9.11M" }
+  },
+  {
+    name: "Global Christian Relief",
+    image: logos.gcr,
+    status: "given",
+    type: "org",
+    category: "persecuted",
+    categoryLabel: "Persecuted Church",
+    amount: "SAR 10,000",
+    amountNum: 10000,
+    potentialAmount: "SAR 5,600",
+    frequency: "Given",
+    description: "Supports persecuted Christians worldwide through emergency aid, trauma care, rebuilding, Bibles, and empowerment. Builds a movement of prayer and support so believers stand firm amid persecution. Formerly Open Doors USA.",
+    link: "https://globalchristianrelief.org",
+    lastUpdate: "",
+    score: -1,
+    scoreLabel: "⚠️",
+    auditPdf: "audits/Global_Christian_Relief_Audit.pdf",
+    stats: { programs: "Not rated yet", ceoPay: "Not available", revenue: "$33.6M" }
+  },
+  // ── MINISTRY OF THE WORD / GLOBAL CHURCH NEEDS ──
+  {
+    name: "Joyful Joseph",
+    image: 'img/joseph.png',
+    status: "new",
+    type: "person",
+    category: "word",
+    categoryLabel: "Ministry of the Word",
+    categories: [{cat: "word", label: "Ministry of the Word"}, {cat: "global", label: "Global Church Needs"}],
+    amount: "SAR 3,300",
+    amountNum: 3300,
+    potentialAmount: "SAR 11,253",
+    frequency: "New — Full budget",
+    description: "Seeking funding to take Joseph out of full-time employment for 1 year to grow in Character, Competency, and Convictions for ministry. He's been faithful serving the church and sharing boldly with friends and family. Has a teaching gift that needs time to develop.",
+    link: "",
+    lastUpdate: "Feb 2026",
+    score: null,
+    updateText: "<strong>Ministry Trainee Year — 3 Growth Areas:</strong><br><br><strong>1. Character</strong> — Life-on-life mentoring and regular check-ins.<br><br><strong>2. Competency</strong> — Modelling and releasing in all elements of ministry: evangelism, Bible reading, teaching, preaching, and pastoring.<br><br><strong>3. Convictions</strong> — An online theology course.<br><br><strong>Why this is wise:</strong><br>• He has been faithful in serving the gathered church and sharing boldly with friends and family.<br>• His type of employment means a year out won't impact future work opportunities.<br>• He has a teaching gift which needs time to hone — no capacity to develop it in his current job."
+  },
+  {
+    name: "Daniel — Ridgy Vibrating Ball",
+    image: 'img/daniel-ball-nobg.png',
+    status: "new",
+    type: "need",
+    category: "global",
+    categoryLabel: "Global Church Needs",
+    amount: "SAR 281",
+    amountNum: 281,
+    frequency: "New — One-time gift",
+    description: "A rechargeable vibrating sensory ball with textured ridges and 3 intensity levels. Great for proprioception, muscle relaxation, and focus. 9cm diameter, silicone rubber, USB rechargeable.",
+    link: "https://specialneedstoys.com/can/proprioception/vibrating-ball.html",
+    lastUpdate: "Feb 2026",
+    score: null,
+    updateText: "<strong>Ridgy Vibrating Ball — TFH Sensory Specialists</strong><br><br>A handheld textured silicone ball with 3 vibration levels (2,650–3,700 RPM). Designed for sensory exploration, proprioception, and calming.<br><br><strong>Key features:</strong><br>• Textured ridges for tactile feedback<br>• 3 adjustable vibration intensities<br>• Rechargeable via micro USB<br>• Auto-off feature<br>• 9 cm diameter, 14 oz<br><br><strong>Benefits:</strong> Muscle relaxation, deep tissue relief, improved body awareness, focus and engagement, pain management. Great for sensory room setups or standalone use."
+  },
+  // ── LOCAL CHURCH ──
+  {
+    name: "Local Church (Us)",
+    image: 'img/local-church.png',
+    status: "given",
+    type: "org",
+    category: "local",
+    categoryLabel: "Local Church",
+    amount: "SAR 26,800",
+    amountNum: 26800,
+    potentialAmount: "SAR 8,200",
+    frequency: "Given — Annual",
+    description: "Our local church. All leadership is unpaid — every dollar given goes to ministry, missions, and community. No fundraising costs. 70% of budget goes to external programs and missions beyond the local body. Assets: ~SAR 2,000.",
+    link: "",
+    lastUpdate: "",
+    score: null,
+    scoreLabel: "N/A",
+    givenLabel: "Year to Date Received",
+    potentialLabel: "Year to Date Expenses",
+    stats: { programs: "70% to external", ceoPay: "$0.00 to raise $1", revenue: "SAR 26,800 / 8,200" }
+  },
+  {
+    name: "Big Projector",
+    image: logos.projector,
+    status: "new",
+    type: "want",
+    category: "local",
+    categoryLabel: "Local Church",
+    amount: "SAR 1,500",
+    amountNum: 1500,
+    potentialAmount: "SAR 2,000",
+    frequency: "1,500 received — needs ~500 more",
+    description: "A brighter projector for worship slides at the local church. Current one is too dim. Church budget doesn't cover it — would come from special giving.",
+    link: "",
+    lastUpdate: "",
+    score: null,
+    updateText: "Church projector upgrade. Current one too dim for worship slides. Cost: SAR 2,000. SAR 1,500 received so far — needs about SAR 500 more."
+  }
+];
+
+function renderCard(r) {
+  const dotClass = r.category === 'church' ? 'dot-church' : 
+                   r.category === 'orphan' ? 'dot-orphan' :
+                   r.category === 'persecuted' ? 'dot-persecuted' :
+                   r.category === 'relief' ? 'dot-relief' :
+                   r.category === 'word' ? 'dot-word' :
+                   r.category === 'local' ? 'dot-local' :
+                   r.category === 'global' ? 'dot-global' : 'dot-special';
+  
+  let badgeClass, badgeText;
+  if (r.status === 'given') { badgeClass = 'badge-given'; badgeText = '✓ Given'; }
+  else if (r.status === 'new') { badgeClass = 'badge-new'; badgeText = '★ New'; }
+  else if (r.type === 'org') { badgeClass = 'badge-org'; badgeText = 'Organization'; }
+  else { badgeClass = 'badge-potential'; badgeText = 'Potential'; }
+  
+  let scoreHtml = '';
+  if (r.score === 100) scoreHtml = `<div class="card-score score-green">${r.scoreLabel}</div>`;
+  else if (r.score > 0 && r.score < 100) scoreHtml = `<div class="card-score score-yellow">${r.scoreLabel}</div>`;
+  else if (r.score === -1) scoreHtml = `<div class="card-score score-red">${r.scoreLabel}</div>`;
+  else if (r.score === null && r.type === 'org') scoreHtml = `<div class="card-score score-na">${r.scoreLabel || 'N/R'}</div>`;
+  
+  const amountClass = r.amountNum === 0 && r.amount === 'TBD' ? 'zero' : '';
+  const amountText = r.amount === 'TBD' ? 'TBD' : r.amount;
+  const recommendedHtml = r.recommended ? `<div style="font-size:11px; color:var(--accent); margin-top:2px;">Next: ${r.recommended}</div>` : '';
+  
+  const card = document.createElement('div');
+  card.className = `card ${r.type} ${r.status === 'given' ? 'status-given' : 'status-new'} cat-${r.category}`;
+  card.onclick = () => openModal(r);
+  const catTag = r.categories
+    ? r.categories.map(c => `<span class="cat-tag cat-tag-${c.cat}">${c.label}</span>`).join(' ')
+    : `<span class="cat-tag cat-tag-${r.category}">${r.categoryLabel}</span>`;
+
+  card.innerHTML = `
+    ${scoreHtml}
+    ${r.image ? `<div class="card-img"><img src="${r.image}" alt="${r.name}"></div>` : ''}
+    <div class="card-top">
+      <div>
+        ${catTag}
+        <div class="card-name">${r.name}</div>
+      </div>
+      <span class="card-badge ${badgeClass}">${badgeText}</span>
+    </div>
+    <div class="card-desc">${r.description}</div>
+    <div class="card-footer">
+      <div>
+        <div style="font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px;">${r.givenLabel || 'Previously Given'}</div>
+        <div class="card-amount" style="color:#60a5fa;">${r.givenAmount || (r.status === 'given' ? r.amount : '—')}</div>
+        <div class="card-freq">${r.frequency}</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:0.5px;">${r.potentialLabel || 'Potential'}</div>
+        <div class="card-amount" style="color:#ec4899;">${r.potentialAmount || r.amount || 'TBD'}</div>
+        ${r.lastUpdate ? `<div class="card-update">Updated: ${r.lastUpdate}</div>` : ''}
+        <div class="click-hint">Click for ${r.type === 'org' ? 'audit' : 'details'} →</div>
+      </div>
+    </div>
+  `;
+  return card;
+}
+
+const allRecipients = allManualRecipients;
+document.getElementById('totalGiven').textContent = 'SAR ' + allRecipients.filter(r => r.status === 'given' && r.name !== 'Local Church (Us)').reduce((s,r) => s + r.amountNum, 0).toLocaleString();
+
+function renderSections() {
+  const el = document.getElementById('allSection');
+  el.innerHTML = `
+    <div class="section-header">
+      <div class="section-title">💛 Giving</div>
+      <div class="section-line"></div>
+      <div class="section-count">${allRecipients.length} recipients</div>
+    </div>
+  `;
+  const grid = document.createElement('div');
+  grid.className = 'grid';
+  allRecipients.forEach(r => grid.appendChild(renderCard(r)));
+  el.appendChild(grid);
+}
+
+function openModal(r) {
+  const modal = document.getElementById('modal');
+  const overlay = document.getElementById('modalOverlay');
+  
+  let content = `<button class="modal-close" onclick="closeModal()">&times;</button>`;
+  if (r.image) {
+    content += `<div style="display:flex;align-items:center;gap:16px;margin-bottom:12px">`;
+    content += `<img src="${r.image}" style="width:64px;height:64px;object-fit:contain;border-radius:10px;background:var(--bg);padding:4px" alt="${r.name}">`;
+    content += `<h2 style="margin:0">${r.name}</h2></div>`;
+  } else {
+    content += `<h2>${r.name}</h2>`;
+  }
+  const catColors = {church:'#60a5fa',orphan:'#d4a017',persecuted:'#f97316',word:'#22c55e',local:'#4ade80',global:'#6088e0'};
+  const cc = catColors[r.category] || 'var(--muted)';
+  content += `<div class="modal-sub"><span style="color:${cc};font-weight:600">${r.categoryLabel}</span> · ${r.frequency} · ${r.amount || 'TBD'}</div>`;
+  content += `<div class="modal-desc">${r.description}</div>`;
+  
+  if (r.link) {
+    content += `<a class="modal-link" href="${r.link}" target="_blank">${r.link} ↗</a>`;
+  }
+  
+  if (r.type === 'org' && r.stats) {
+    content += `<div class="modal-stats">
+      <div class="modal-stat"><div class="stat-label">$ to Mission</div><div class="stat-value">${r.stats.programs}</div></div>
+      <div class="modal-stat"><div class="stat-label">Fundraiser Efficiency</div><div class="stat-value">${r.stats.ceoPay}</div></div>
+      <div class="modal-stat"><div class="stat-label">Revenue</div><div class="stat-value">${r.stats.revenue}</div></div>
+    </div>`;
+  }
+  
+  if (r.type === 'org' && r.auditPdf) {
+    content += `<iframe class="audit-frame" src="${r.auditPdf}"></iframe>`;
+  } else if (r.updatePdf) {
+    content += `<div class="update-box" style="max-height:none;overflow:visible">
+      <h3>📋 Latest Update</h3>
+      <div style="font-size:13px;line-height:1.8;white-space:normal;word-wrap:break-word;margin-bottom:12px">${r.updateText || ''}</div>
+      <iframe class="audit-frame" src="${r.updatePdf}"></iframe>
+      ${r.lastUpdate ? `<p style="margin-top:12px;font-size:11px;color:var(--muted)">Last updated: ${r.lastUpdate}</p>` : ''}
+    </div>`;
+  } else {
+    content += `<div class="update-box" style="max-height:none;overflow:visible">
+      <h3>📋 Latest Update</h3>
+      <div style="font-size:13px;line-height:1.8;white-space:normal;word-wrap:break-word">${r.updateText || 'No updates yet. Add updates as you receive them.'}</div>
+      ${r.lastUpdate ? `<p style="margin-top:12px;font-size:11px;color:var(--muted)">Last updated: ${r.lastUpdate}</p>` : ''}
+    </div>`;
+  }
+  
+  modal.innerHTML = content;
+  overlay.classList.add('show');
+}
+
+function closeModal(e) {
+  if (e && e.target !== e.currentTarget) return;
+  document.getElementById('modalOverlay').classList.remove('show');
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+renderSections();
+</script>
+</body>
+</html>
