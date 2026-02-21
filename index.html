@@ -176,6 +176,15 @@ if (sessionStorage.getItem('giving_auth') === '1') {
   </div>
 </div>
 
+<div style="margin-bottom:24px;">
+  <button onclick="document.getElementById('linksPanel').style.display=document.getElementById('linksPanel').style.display==='none'?'block':'none'" style="background:var(--accent);color:#fff;border:none;border-radius:10px;padding:10px 20px;font-size:14px;font-weight:600;cursor:pointer;">🔗 Links</button>
+  <div id="linksPanel" style="display:none;margin-top:12px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,0.06);">
+    <ul style="list-style:none;padding:0;margin:0;">
+      <li style="padding:8px 0;border-bottom:1px solid var(--border);"><a href="https://www.charitynavigator.org" target="_blank" style="color:var(--accent);text-decoration:none;font-size:14px;font-weight:500;">🏛️ Charity Navigator</a><span style="color:var(--muted);font-size:12px;margin-left:8px;">— Research & rate charities</span></li>
+    </ul>
+  </div>
+</div>
+
 <div id="allSection" class="section"></div>
 
 <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
