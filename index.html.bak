@@ -281,29 +281,13 @@ const allManualRecipients = [
       financials: [
         {metric:"Revenue",value:"$5.75M"},{metric:"Expenses",value:"$3.69M"},
         {metric:"Total Assets",value:"$3.52M"},{metric:"Liabilities",value:"$596K (16.9%)",rating:"Moderate",ratingColor:"amber"},
-        {metric:"Program Ratio",value:"Not calculated",rating:"Unrated",ratingColor:"amber"},
-        {metric:"Program Expense Ratio",value:"~73-90% (varies by year)",rating:"Moderate-Good",ratingColor:"amber"}
+        {metric:"Program Ratio",value:"Not calculated",rating:"Unrated",ratingColor:"amber"}
       ],
       leaders: [{name:"David Platt",role:"Chair/Founder",comp:"$0"},{name:"Christopher Hunsberger",role:"CEO/Director",comp:"$159,102"},{name:"Warren Beason",role:"President",comp:"$66,128"},{name:"3 Directors",role:"Various",comp:"$0"}],
-      leaderNote: "Total: ~$225K / $3.69M = 6.1% · David Platt serves as founder and chair with $0 salary · Board members unpaid",
-      governance: ["ECFA member (since 2023)","Board majority independent","Platt takes no salary","Board members unpaid","Consistent filings 2011–2021","Platinum Candid designation","Annual audits by Capin Crouse","Financial statements publicly available on radical.net"],
+      leaderNote: "Total: ~$225K / $3.69M = 6.1% · David Platt takes $0",
+      governance: ["ECFA member","Board majority independent","Platt takes no salary","Consistent filings 2011–2021"],
       redflags: "Charity Navigator cannot rate yet. Most recent 990 is FY2021 — 3+ years old. Platt faced governance disputes at McLean Bible Church (separate from Radical).",
       redflagLevel: "amber",
-      critics: [
-        "Most recent 990 is FY2021 — 5 years old. Current financial health is unverifiable.",
-        "David Platt faced serious governance accusations at McLean Bible Church — authoritarianism, secret votes, and congregational splits. Though separate from Radical, it raises leadership questions.",
-        "Charity Navigator cannot rate them due to insufficient data — a red flag for a ministry of this size.",
-        "Revenue dropped from $10.5M (2019) to $5.75M (2021) — a 45% decline with no public explanation.",
-        "No independent program expense ratio available — 'lean operation' is claimed but unproven."
-      ],
-      ambassadors: [
-        "David Platt takes $0 salary — a rare commitment from a bestselling author who could command significant income.",
-        "ECFA accredited — meets evangelical financial accountability standards.",
-        "Secret Church events have raised millions for Bible translation and persecuted believers worldwide.",
-        "'Radical' (the book) has mobilized thousands of Christians toward sacrificial giving and missions.",
-        "Consistent IRS filings from 2011–2021 with no asset diversion or governance red flags in the 990s.",
-        "Strong transparency via ECFA membership (since 2023), Candid Platinum status, and public audited financial statements."
-      ],
       verdict: "Lean operation, founder takes $0, ECFA member. A pure missions-focused ministry — your dollar funds Gospel teaching, church planting, and missions mobilization.",
       sources: "Sources: IRS Form 990 (FY2021), ProPublica, ECFA · Prepared by Po — Feb 2026"
     }
@@ -342,20 +326,6 @@ const allManualRecipients = [
       governance: ["62% independent board (5/8)","Audited w/ oversight committee","No asset diversion","All policies in place","ECFA accredited","990 published on website"],
       redflags: "None found. No scandals, complaints, or controversies. Consistent filings since 2007. Stable salaries year over year.",
       redflagLevel: "clean",
-      critics: [
-        "Family-run elements — President (Pat Bradley) and Vice President (Susan Bradley) are married. Board should ensure independent oversight of compensation.",
-        "Relatively small revenue ($5.88M) limits scale of impact compared to larger relief orgs.",
-        "No Charity Navigator rating history before FY2024 — limited track record of third-party evaluation.",
-        "Anti-trafficking claims (3,200+ victims) are self-reported with no independent verification published."
-      ],
-      ambassadors: [
-        "Perfect 100 Charity Navigator score — only ~5% of rated charities achieve this.",
-        "90% program expense ratio — among the highest in the relief sector.",
-        "$0.03 to raise $1 — fundraising efficiency is exceptional.",
-        "ECFA accredited with all governance policies in place.",
-        "Partnered with Francis Chan / Crazy Love — credible evangelical endorsement.",
-        "Consistent filings since 2007. Zero scandals, complaints, or controversies found."
-      ],
       verdict: "Clean finances, Gospel-centered mission, lean leadership. <strong>90% to programs</strong>, founder modestly paid. A strong choice for giving.",
       sources: "Sources: IRS Form 990 (FY2024), Charity Navigator, ProPublica, ECFA · Prepared by Po — Feb 2026"
     }
@@ -393,20 +363,6 @@ const allManualRecipients = [
       governance: ["100% independent board","Audited w/ oversight committee","No asset diversion","All policies in place","ECFA accredited","Donor-advised fund"],
       redflags: "None found. No controversies, scandals, or complaints. CEO donates his time. Impeccable record.",
       redflagLevel: "clean",
-      critics: [
-        "VP compensation ($241K) is above average for a Gridley, IL-based nonprofit — may reflect broader responsibilities but warrants context.",
-        "Working capital of 2.28 years means $78M+ in assets — some donors prefer orgs that deploy funds faster rather than building reserves.",
-        "Revenue ($42.8M) significantly exceeds expenses ($34.4M) — the $8.4M surplus raises questions about pace of deployment.",
-        "Founder-led board dynamics: Gary Ringger founded it and serves as unpaid CEO — governance should ensure he doesn't wield outsized influence despite $0 salary."
-      ],
-      ambassadors: [
-        "Perfect 100 Charity Navigator score. 93% to programs — elite efficiency.",
-        "CEO Gary Ringger volunteers his time at $0 salary — virtually unheard of at this revenue scale.",
-        "100% independent board (7/7) — gold standard governance.",
-        "ECFA accredited. Zero scandals in 23-year history.",
-        "Operates in 16 countries with indigenous church partnerships — culturally sensitive model.",
-        "Lifesong Farms program gives orphan graduates vocational skills for independence — not just care, but a future."
-      ],
       verdict: "One of the best. <strong>93% to programs, CEO works free, 100% independent board</strong>, Gospel at the center.",
       sources: "Sources: IRS Form 990 (FY2024), Charity Navigator, ProPublica, ECFA · Prepared by Po — Feb 2026"
     }
@@ -443,23 +399,7 @@ const allManualRecipients = [
       governance: ["ECFA accredited (via NAMB)","Audited financials on SBC website"],
       redflags: "No independent financials — cannot verify program vs. overhead ratio. Federal grant controversy. SBC Transparency group has requested forensic audit of NAMB spending.",
       redflagLevel: "amber",
-      critics: [
-        "No public 990 — church exemption means zero independent financial verification. You literally cannot see where your dollar goes.",
-        "SBC has faced major governance crises: sexual abuse cover-up scandal (2019–2022), DOJ investigation, and Executive Committee resignations.",
-        "SBC Transparency group has formally requested a forensic audit of NAMB spending — the parent org of Send Relief.",
-        "Federal grant controversies raised questions about government funding mixing with ministry operations.",
-        "Kevin Ezell (NAMB President) compensation was ~$700K+ including housing — one of the highest in SBC entities. Send Relief operates under his leadership.",
-        "Individual compensation for Send Relief staff is not publicly disclosed — unusual for a ministry receiving millions in donations."
-      ],
-      ambassadors: [
-        "Connected to the largest Protestant missions network in the world — 3,500+ IMB missionaries globally.",
-        "ECFA accredited through NAMB — meets baseline accountability standards.",
-        "Rapid disaster response capability leveraging SBC's massive volunteer network (Southern Baptist Disaster Relief).",
-        "1M+ refugees served across Europe and Middle East — significant scale of impact.",
-        "Local church partnership model means relief connects to ongoing discipleship, not just one-time aid.",
-        "Audited financials published on SBC.net — some transparency exists even without a 990."
-      ],
-      verdict: "Connected to the largest Protestant missions network in the world. ECFA accredited and audited. <strong>Financial details aren't public due to church exemption</strong> — review the Critics and Ambassadors sections above to weigh this.",
+      verdict: "Huge mission connected to Gospel work through the SBC's global network. ECFA accredited and audited. But <strong>you cannot independently verify how your dollar is allocated</strong> — it's a matter of trusting SBC governance.",
       sources: "Sources: SBC.net, ECFA (NAMB profile), GuideStar, SBC Transparency · Prepared by Po — Feb 2026"
     }
   },
@@ -484,7 +424,7 @@ const allManualRecipients = [
     audit: {
       ein: "92-1154296", location: "Santa Ana, CA · Founded 1955 · ECFA Accredited", score: 75, scoreSource: "Charity Navigator FY2024",
       programs: ["World Watch List — annual ranking of 50 countries of persecution","Bible Distribution — Scriptures in 70+ countries","Church Leader Training — equipping pastors in persecuted regions","Emergency Relief — support for displaced Christians","Advocacy & Awareness — mobilizing prayer from the free world"],
-      mission: "Strengthening persecuted Christians worldwide. Led by CEO George Ryan Brown (since mid-2023) following the 2023 split from former CEO David Curry. Sarah Cunningham serves as COO. The World Watch List is the gold standard for tracking Christian persecution globally. Explicitly evangelical — faith is core to their identity. Brother Andrew's legacy of smuggling Bibles behind the Iron Curtain lives on.",
+      mission: "Strengthening persecuted Christians worldwide. The World Watch List is the gold standard for tracking Christian persecution globally. Explicitly evangelical — faith is core to their identity. Brother Andrew's legacy of smuggling Bibles behind the Iron Curtain lives on.",
       financials: [
         {metric:"Program Expense Ratio",value:"60%",rating:"Below Average",ratingColor:"amber"},
         {metric:"Fundraising Efficiency",value:"$0.23 to raise $1",rating:"High Cost",ratingColor:"red"},
@@ -497,24 +437,7 @@ const allManualRecipients = [
       governance: ["ECFA accredited (2024)","Audited w/ oversight committee","No asset diversion","All policies in place","990 on website"],
       redflags: "High fundraising costs (22%), low program ratio (60%), very small board (3 members). Complex restructuring — split from Open Doors USA (now GCR) in Jan 2023. New EIN, rebuilding track record.",
       redflagLevel: "warning",
-      critics: [
-        "60% program ratio is well below the 75% benchmark most watchdogs recommend — 40 cents of every dollar does NOT reach the mission.",
-        "$0.23 to raise $1 is expensive fundraising — healthy orgs spend $0.05–$0.10.",
-        "Only 3 board members — far below governance best practices (minimum 5–7). Concentration of control risk.",
-        "Messy split from Open Doors USA (now GCR) in Jan 2023 — organizational instability, new EIN, rebuilding from scratch.",
-        "Top-5 executive compensation totals $719K on $9.26M revenue (7.8%) — high for a small org with poor program efficiency.",
-        "Benefits ratio at 23% of compensation is notably high.",
-        "The World Watch List, while widely cited, is produced by an advocacy org with a fundraising incentive to emphasize persecution severity. Its methodology is not fully transparent or independently audited. Persecution narratives — particularly around Nigeria and Syria — should be cross-referenced with neutral sources (UN, Reuters, AP) rather than accepted at face value."
-      ],
-      ambassadors: [
-        "The World Watch List is widely cited by governments, media, and researchers as a reference for Christian persecution tracking.",
-        "Brother Andrew's legacy: 70 years of serving persecuted Christians, smuggling Bibles behind the Iron Curtain.",
-        "ECFA accredited (2024) — met accountability standards despite the restructuring.",
-        "Operating in 70+ countries where the church faces active persecution — among the hardest mission fields on earth.",
-        "FY2024 financials are current and transparent — they file and publish, unlike many peers.",
-        "New leadership may improve efficiency as the post-split organization matures."
-      ],
-      verdict: "70 years serving persecuted Christians. World Watch List widely cited globally. <strong>60% program ratio and 22% fundraising costs are below benchmarks</strong> — worth monitoring as the post-split organization matures.",
+      verdict: "Legendary mission with Brother Andrew's legacy. World Watch List is globally respected. However, <strong>60% to programs and 22% fundraising costs are below standards</strong>. Consider a smaller initial gift and review after FY2025.",
       sources: "Sources: IRS Form 990 (FY2024), Charity Navigator, ProPublica, ECFA · Prepared by Po — Feb 2026"
     }
   },
@@ -549,24 +472,7 @@ const allManualRecipients = [
       governance: ["Board directors unpaid (9)"],
       redflags: "Organizational split (Jan 2023) after founder died. CEO comp $324K higher than peers. Most recent 990 is 2020. No ECFA accreditation for rebranded entity.",
       redflagLevel: "warning",
-      critics: [
-        "Most recent 990 is FY2020 — 6 years old. Current financial state is completely unknown.",
-        "Organizational split after Brother Andrew's death raises questions about what the dispute was actually about — money, control, or mission direction?",
-        "No ECFA accreditation for the rebranded GCR entity — they lost that accountability marker in the split.",
-        "CEO comp $324K — while the ratio to revenue (0.97%) is reasonable, the total is high compared to Crisis Aid ($124K) and Lifesong ($0) CEOs doing comparable work.",
-        "Chief Comms Officer at $253K is notably high — suggests significant spending on brand/marketing rather than field operations.",
-        "$2.88M in liabilities (23.6% of assets) is the highest ratio among the orgs on this dashboard.",
-        "'Christian persecution' has become a geopolitical buzzword used to justify military actions in some contexts. GCR's front-page story features Nigerian Christian persecution, but evidence suggests the violence there is not primarily religiously motivated — more Muslims than Christians have died in the broader conflict (per Nigerian government data). Christian aid orgs are among the weakest at fact-checking persecution narratives and risk creating propaganda. Claims should be cross-referenced with neutral sources (UN, Reuters, AP), not just advocacy reports."
-      ],
-      ambassadors: [
-        "Inherits 68 years of Open Doors USA infrastructure, relationships, and field networks in 70+ countries.",
-        "$33.6M revenue demonstrates significant donor trust and operational scale.",
-        "Board is 100% unpaid (9 directors) — strong governance signal.",
-        "Revenue exceeds expenses ($33.6M vs $28.8M) — not running deficits.",
-        "Serving persecuted Christians is among the most important and dangerous mission fields — few organizations do this work.",
-        "David Curry is a visible public advocate for persecuted believers, frequently appearing in media and before Congress."
-      ],
-      verdict: "Significant scale ($33.6M) serving persecuted Christians in 70+ countries with an unpaid board. <strong>Current financials unavailable (last 990 is FY2020)</strong> — see Critics and Ambassadors sections for the full picture.",
+      verdict: "The mission — serving persecuted Christians — is vital. But the <strong>split, higher compensation, and lack of current financial transparency warrant caution</strong>. Consider Open Doors International as an alternative.",
       sources: "Sources: IRS Form 990 (FY2020), ProPublica, Christianity Today · Prepared by Po — Feb 2026"
     }
   },
@@ -810,20 +716,6 @@ function openModal(r) {
       content += `<div style="font-size:11px;font-weight:700;color:var(--text);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px;border-bottom:2px solid #2563eb;display:inline-block;padding-bottom:2px">Governance</div>`;
       content += `<div style="display:flex;flex-wrap:wrap;gap:4px 12px;margin-bottom:10px">`;
       a.governance.forEach(g => content += `<span style="font-size:11px;color:#166534">✓ ${g}</span>`);
-      content += `</div>`;
-    }
-    // Critics Say
-    if (a.critics && a.critics.length) {
-      content += `<div style="font-size:11px;font-weight:700;color:var(--text);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px;border-bottom:2px solid #dc2626;display:inline-block;padding-bottom:2px">⚖️ Critics Say</div>`;
-      content += `<div style="background:#fef2f2;border-left:4px solid #dc2626;border-radius:8px;padding:10px 12px;margin-bottom:14px">`;
-      a.critics.forEach(c => content += `<div style="font-size:12px;line-height:1.6;margin-bottom:4px;display:flex;gap:6px"><span style="color:#dc2626;flex-shrink:0">✗</span><span>${c}</span></div>`);
-      content += `</div>`;
-    }
-    // Ambassadors Say
-    if (a.ambassadors && a.ambassadors.length) {
-      content += `<div style="font-size:11px;font-weight:700;color:var(--text);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:6px;border-bottom:2px solid #16a34a;display:inline-block;padding-bottom:2px">🤝 Ambassadors Say</div>`;
-      content += `<div style="background:#f0fdf4;border-left:4px solid #16a34a;border-radius:8px;padding:10px 12px;margin-bottom:14px">`;
-      a.ambassadors.forEach(c => content += `<div style="font-size:12px;line-height:1.6;margin-bottom:4px;display:flex;gap:6px"><span style="color:#16a34a;flex-shrink:0">✓</span><span>${c}</span></div>`);
       content += `</div>`;
     }
     // Red flags
