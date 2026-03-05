@@ -32,9 +32,23 @@
   .section-line { flex: 1; height: 1px; background: var(--border); }
   .section-count { font-size: 12px; color: var(--muted); background: var(--card); padding: 3px 10px; border-radius: 10px; border: 1px solid var(--border); }
   
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
   
-  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; cursor: pointer; transition: all 0.2s; position: relative; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+  /* Category filter toggles */
+  .cat-filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+  .cat-btn { padding: 6px 14px; border-radius: 20px; border: 2px solid var(--border); background: var(--card); font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; color: var(--muted); }
+  .cat-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .cat-btn.active { color: #fff; }
+  .cat-btn.active[data-cat="all"] { background: var(--accent); border-color: var(--accent); }
+  .cat-btn.active[data-cat="church"] { background: #60a5fa; border-color: #60a5fa; }
+  .cat-btn.active[data-cat="orphan"] { background: #d4a017; border-color: #d4a017; }
+  .cat-btn.active[data-cat="persecuted"] { background: #f97316; border-color: #f97316; }
+  .cat-btn.active[data-cat="word"] { background: #166534; border-color: #166534; }
+  .cat-btn.active[data-cat="local"] { background: #4ade80; border-color: #4ade80; color: #0f172a; }
+  .cat-btn.active[data-cat="global"] { background: #1e40af; border-color: #1e40af; }
+
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; cursor: pointer; transition: all 0.25s; position: relative; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+  .card.dimmed { opacity: 0.3; filter: grayscale(80%); transform: scale(0.98); }
   .card:hover { background: var(--card-hover); border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
   .card.cat-church { border-left: 3px solid #60a5fa; }
   .card.cat-orphan { border-left: 3px solid #facc15; }
@@ -59,12 +73,12 @@
   .cat-tag.cat-tag-local { background: rgba(74,222,128,0.15); color: #4ade80; }
   .cat-tag.cat-tag-global { background: rgba(30,64,175,0.15); color: #6088e0; }
   
-  .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
-  .card-img { width: 100%; height: 120px; border-radius: 8px; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #eef0f5; }
+  .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+  .card-img { width: 100%; height: 96px; border-radius: 8px; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #eef0f5; }
   .card-img img { max-width: 100%; max-height: 100%; object-fit: contain; }
   .card-img svg { width: 100%; height: 100%; }
   .card-top-left { display: flex; align-items: flex-start; flex: 1; min-width: 0; }
-  .card-name { font-size: 16px; font-weight: 600; }
+  .card-name { font-size: 14px; font-weight: 600; }
   .card-badge { font-size: 10px; padding: 3px 8px; border-radius: 10px; font-weight: 600; text-transform: uppercase; }
   .badge-org { background: rgba(59,130,246,0.15); color: var(--accent); }
   .badge-person { background: rgba(168,85,247,0.15); color: var(--purple); }
@@ -85,15 +99,15 @@
   .dot-local { background: #4ade80; }
   .dot-global { background: #1e40af; }
   
-  .card-desc { font-size: 12px; color: var(--muted); line-height: 1.5; margin-bottom: 12px; }
+  .card-desc { font-size: 11px; color: var(--muted); line-height: 1.5; margin-bottom: 10px; }
   
-  .card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 10px; }
-  .card-amount { font-size: 18px; font-weight: 700; }
+  .card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); padding-top: 8px; }
+  .card-amount { font-size: 15px; font-weight: 700; }
   .card-amount.zero { color: var(--muted); font-size: 14px; }
   .card-freq { font-size: 11px; color: var(--muted); }
   .card-update { font-size: 10px; color: var(--muted); }
   
-  .card-score { position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; }
+  .card-score { position: absolute; top: 12px; right: 12px; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; }
   .score-green { background: rgba(22,163,74,0.1); color: var(--green); border: 2px solid var(--green); }
   .score-yellow { background: rgba(217,119,6,0.1); color: var(--orange); border: 2px solid var(--orange); }
   .score-red { background: rgba(220,38,38,0.1); color: var(--red); border: 2px solid var(--red); }
@@ -184,6 +198,16 @@ if (sessionStorage.getItem('giving_auth') === '1') {
       <li style="padding:8px 0;border-bottom:1px solid var(--border);"><a href="https://willslawrence.github.io/giving-vote/" target="_blank" style="color:var(--accent);text-decoration:none;font-size:14px;font-weight:500;">🗳️ Giving Vote</a><span style="color:var(--muted);font-size:12px;margin-left:8px;">— Vote on giving priorities</span></li>
     </ul>
   </div>
+</div>
+
+<div class="cat-filters" id="catFilters">
+  <button class="cat-btn active" data-cat="all" onclick="filterCat('all')">All</button>
+  <button class="cat-btn" data-cat="church" onclick="filterCat('church')">⛪ Church Planting</button>
+  <button class="cat-btn" data-cat="orphan" onclick="filterCat('orphan')">💛 Orphans, Widows & Sojourners</button>
+  <button class="cat-btn" data-cat="persecuted" onclick="filterCat('persecuted')">🔥 Persecuted Church</button>
+  <button class="cat-btn" data-cat="word" onclick="filterCat('word')">📖 Ministry of the Word</button>
+  <button class="cat-btn" data-cat="local" onclick="filterCat('local')">🏠 Local Church</button>
+  <button class="cat-btn" data-cat="global" onclick="filterCat('global')">🌍 Global Church Needs</button>
 </div>
 
 <div id="allSection" class="section"></div>
@@ -727,6 +751,8 @@ function renderCard(r) {
   
   const card = document.createElement('div');
   card.className = `card ${r.type} ${r.status === 'given' ? 'status-given' : 'status-new'} cat-${r.category}`;
+  card.dataset.category = r.category;
+  if (r.categories) card.dataset.categories = r.categories.map(c => c.cat).join(',');
   card.onclick = () => openModal(r);
   const catTag = r.categories
     ? r.categories.map(c => `<span class="cat-tag cat-tag-${c.cat}">${c.label}</span>`).join(' ')
@@ -761,6 +787,27 @@ function renderCard(r) {
 
 const allRecipients = allManualRecipients;
 document.getElementById('totalGiven').textContent = 'SAR ' + allRecipients.filter(r => r.status === 'given' && r.name !== 'Local Church (Us)').reduce((s,r) => s + r.amountNum, 0).toLocaleString();
+
+let activeCat = 'all';
+
+function filterCat(cat) {
+  activeCat = cat;
+  // Update button states
+  document.querySelectorAll('.cat-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.cat === cat);
+  });
+  // Dim/undim cards
+  document.querySelectorAll('.card').forEach(card => {
+    if (cat === 'all') {
+      card.classList.remove('dimmed');
+    } else {
+      const cardCat = card.dataset.category;
+      const cardCats = card.dataset.categories || cardCat;
+      const matches = cardCats.split(',').includes(cat);
+      card.classList.toggle('dimmed', !matches);
+    }
+  });
+}
 
 function renderSections() {
   const el = document.getElementById('allSection');
