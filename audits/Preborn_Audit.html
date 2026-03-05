@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  @page {
+    size: letter;
+    margin: 0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    color: #1e293b;
+    background: white;
+    width: 8.5in;
+    min-height: 11in;
+    padding: 0.5in 0.55in 0.4in;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #e2e8f0;
+  }
+  .org-name {
+    font-size: 24px;
+    font-weight: 700;
+    color: #0f172a;
+    letter-spacing: -0.5px;
+    line-height: 1.2;
+  }
+  .org-meta {
+    font-size: 10px;
+    color: #64748b;
+    margin-top: 4px;
+    line-height: 1.6;
+  }
+  .org-meta a { color: #2563eb; text-decoration: none; }
+  .org-tag {
+    display: inline-block;
+    background: #dbeafe;
+    color: #1d4ed8;
+    font-size: 8.5px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-top: 5px;
+    letter-spacing: 0.3px;
+  }
+
+  /* Score badge */
+  .score-badge {
+    text-align: center;
+    min-width: 72px;
+    flex-shrink: 0;
+  }
+  .score-ring {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 4px;
+  }
+  .score-ring.excellent { background: linear-gradient(135deg, #f0fdf4, #dcfce7); border: 3px solid #16a34a; }
+  .score-ring.good { background: linear-gradient(135deg, #fefce8, #fef9c3); border: 3px solid #ca8a04; }
+  .score-ring.poor { background: linear-gradient(135deg, #fef2f2, #fee2e2); border: 3px solid #dc2626; }
+  .score-num {
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 1;
+  }
+  .score-ring.excellent .score-num { color: #16a34a; }
+  .score-ring.good .score-num { color: #ca8a04; }
+  .score-ring.poor .score-num { color: #dc2626; }
+  .score-source {
+    font-size: 8px;
+    color: #94a3b8;
+    font-weight: 500;
+  }
+  .score-label {
+    font-size: 8.5px;
+    color: #64748b;
+    margin-top: 2px;
+  }
+
+  /* ── SECTIONS ── */
+  .section {
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-size: 10.5px;
+    font-weight: 700;
+    color: #0f172a;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin-bottom: 6px;
+    padding-bottom: 3px;
+    border-bottom: 2px solid #2563eb;
+    display: inline-block;
+  }
+
+  /* ── WHAT THEY DO ── */
+  .programs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px 14px;
+  }
+  .program {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+    font-size: 9px;
+    line-height: 1.5;
+  }
+  .program-icon {
+    width: 5px;
+    height: 5px;
+    background: #2563eb;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+  .program b { color: #0f172a; }
+  .program span { color: #475569; }
+
+  .impact-line {
+    font-size: 8.5px;
+    color: #64748b;
+    margin-top: 6px;
+    font-style: italic;
+  }
+
+  /* ── CALLOUT BOX ── */
+  .callout {
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 9px;
+    line-height: 1.6;
+    margin-top: 4px;
+  }
+  .callout.mission {
+    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+    border-left: 4px solid #2563eb;
+    color: #1e40af;
+  }
+  .callout.clean {
+    background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+    border-left: 4px solid #16a34a;
+    color: #166534;
+  }
+  .callout.warning {
+    background: linear-gradient(135deg, #fef2f2, #fee2e2);
+    border-left: 4px solid #dc2626;
+    color: #991b1b;
+  }
+  .callout.amber {
+    background: linear-gradient(135deg, #fffbeb, #fef3c7);
+    border-left: 4px solid #d97706;
+    color: #92400e;
+  }
+  .callout-label {
+    font-weight: 700;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 3px;
+  }
+
+  /* ── TABLES ── */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9px;
+    margin-top: 3px;
+  }
+  .data-table th {
+    text-align: left;
+    font-size: 7.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #64748b;
+    padding: 5px 10px;
+    border-bottom: 2px solid #e2e8f0;
+    font-weight: 600;
+  }
+  .data-table td {
+    padding: 6px 10px;
+    border-bottom: 1px solid #f1f5f9;
+    vertical-align: middle;
+  }
+  .data-table tr:nth-child(even) td {
+    background: #f8fafc;
+  }
+  .data-table .val {
+    font-weight: 700;
+    color: #0f172a;
+  }
+  .data-table .metric {
+    color: #475569;
+  }
+
+  /* Rating pills */
+  .pill {
+    display: inline-block;
+    font-size: 7.5px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+    letter-spacing: 0.3px;
+  }
+  .pill.green { background: #dcfce7; color: #166534; }
+  .pill.amber { background: #fef9c3; color: #854d0e; }
+  .pill.red { background: #fee2e2; color: #991b1b; }
+
+  /* ── GOVERNANCE CHECKS ── */
+  .gov-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    margin-top: 4px;
+  }
+  .gov-check {
+    font-size: 9px;
+    color: #166534;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .check-dot {
+    width: 14px;
+    height: 14px;
+    background: #dcfce7;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    font-weight: 800;
+    color: #16a34a;
+    flex-shrink: 0;
+  }
+
+  /* ── CRITICS / AMBASSADORS ── */
+  .critics-box {
+    background: #fef2f2;
+    border-left: 4px solid #dc2626;
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-top: 6px;
+    margin-bottom: 10px;
+  }
+  .critics-box .item {
+    font-size: 9px;
+    line-height: 1.6;
+    margin-bottom: 4px;
+    display: flex;
+    gap: 5px;
+  }
+  .critics-box .bullet { color: #dc2626; flex-shrink: 0; font-weight: 700; }
+
+  .ambassadors-box {
+    background: #f0fdf4;
+    border-left: 4px solid #16a34a;
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-top: 6px;
+    margin-bottom: 10px;
+  }
+  .ambassadors-box .item {
+    font-size: 9px;
+    line-height: 1.6;
+    margin-bottom: 4px;
+    display: flex;
+    gap: 5px;
+  }
+  .ambassadors-box .bullet { color: #16a34a; flex-shrink: 0; font-weight: 700; }
+
+  /* ── VERDICT ── */
+  .verdict {
+    background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-top: 4px;
+  }
+  .verdict p {
+    font-size: 9.5px;
+    line-height: 1.6;
+    color: #334155;
+  }
+  .verdict .donate {
+    margin-top: 6px;
+    font-size: 9.5px;
+    font-weight: 700;
+    color: #2563eb;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    position: absolute;
+    bottom: 0.3in;
+    left: 0.55in;
+    right: 0.55in;
+    font-size: 6.5px;
+    color: #94a3b8;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 6px;
+  }
+
+  /* Two-col layout helper */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div>
+    <div class="org-name">PreBorn!</div>
+    <div class="org-meta">
+      EIN: 20-8755673 &nbsp;·&nbsp; Indianapolis, IN &nbsp;·&nbsp; Founded ~2010 &nbsp;·&nbsp; <a href="https://preborn.com">preborn.com</a>
+    </div>
+    <div class="org-tag">ECFA ACCREDITED</div>
+    <div class="org-tag" style="background:#fce7f3; color:#be185d;">PRO-LIFE / PREGNANCY SUPPORT</div>
+  </div>
+  <div class="score-badge">
+    <div class="score-ring excellent">
+      <div class="score-num">100</div>
+      <div class="score-source">FY2023</div>
+    </div>
+    <div class="score-label">Charity Navigator</div>
+  </div>
+</div>
+
+<!-- WHAT THEY DO -->
+<div class="section">
+  <div class="section-title">What They Do</div>
+  <div class="programs">
+    <div class="program"><div class="program-icon"></div><div><b>Free Ultrasounds</b> <span>— equipping pregnancy centers with ultrasound machines</span></div></div>
+    <div class="program"><div class="program-icon"></div><div><b>Pregnancy Center Support</b> <span>— funding, training, and advertising for clinics</span></div></div>
+    <div class="program"><div class="program-icon"></div><div><b>Counseling &amp; Follow-Up</b> <span>— resources for pregnancy counselors + post-visit contact</span></div></div>
+    <div class="program"><div class="program-icon"></div><div><b>Gospel Outreach</b> <span>— sharing the Gospel through pregnancy center interactions</span></div></div>
+    <div class="program"><div class="program-icon"></div><div><b>Pro-Life Advocacy</b> <span>— education and awareness campaigns nationwide</span></div></div>
+  </div>
+  <div class="impact-line">National network of pregnancy resource centers. "Saving babies and saving souls" — explicitly Gospel-centered pro-life mission. Explosive growth: $1.2M (2016) → $34.7M (2023).</div>
+</div>
+
+<!-- MISSION -->
+<div class="section">
+  <div class="section-title">Mission &amp; Outreach</div>
+  <div class="callout mission">
+    <strong>"Saving babies and saving souls."</strong> PreBorn! equips pregnancy resource centers with ultrasound machines and funding so women facing unplanned pregnancies can see their baby before deciding. The ministry is explicitly Gospel-centered — every ultrasound appointment includes an opportunity to hear the Gospel. Founded by Dan Steiner, who remains CEO. ECFA accredited since 2011.
+  </div>
+</div>
+
+<!-- FINANCIALS + LEADERSHIP side by side -->
+<div class="two-col">
+  <div class="section">
+    <div class="section-title">Financials (FY 2023)</div>
+    <table class="data-table">
+      <tr><th class="metric">Metric</th><th>Value</th><th>Rating</th></tr>
+      <tr><td class="metric">Program Expense Ratio</td><td class="val">87.20%</td><td><span class="pill green">Excellent</span></td></tr>
+      <tr><td class="metric">Fundraising Efficiency</td><td class="val">$0.03 to raise $1</td><td><span class="pill green">Excellent</span></td></tr>
+      <tr><td class="metric">Revenue / Expenses</td><td class="val">$34.7M / $24.7M</td><td></td></tr>
+      <tr><td class="metric">Liabilities to Assets</td><td class="val">2.25%</td><td><span class="pill green">Very Low</span></td></tr>
+      <tr><td class="metric">Working Capital</td><td class="val">0.83 years</td><td><span class="pill green">Healthy</span></td></tr>
+    </table>
+    <div style="font-size:7.5px; color:#94a3b8; margin-top:4px;">Source: IRS Form 990 (FY2023, filed Aug 2025)</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Leadership</div>
+    <table class="data-table">
+      <tr><th>Person</th><th>Role</th><th>Comp</th></tr>
+      <tr><td class="val">Dan Steiner</td><td class="metric">Founder/CEO</td><td class="val">~$469K*</td></tr>
+      <tr><td class="val">Stan Lovings II</td><td class="metric">Chairman</td><td class="val">$0</td></tr>
+      <tr><td>6 Board Members</td><td class="metric">Various</td><td>$0 (unpaid)</td></tr>
+    </table>
+    <div style="font-size:7.5px; color:#94a3b8; margin-top:4px;">*Total officer comp from 990 = $469,921. Benefits rate: 25%. Board size: 6 (83% independent).</div>
+  </div>
+</div>
+
+<!-- GOVERNANCE -->
+<div class="section">
+  <div class="section-title">Governance &amp; Transparency</div>
+  <div class="gov-grid">
+    <div class="gov-check"><div class="check-dot">+</div> 83% independent board (5/6)</div>
+    <div class="gov-check"><div class="check-dot">+</div> Audited w/ oversight committee</div>
+    <div class="gov-check"><div class="check-dot">+</div> No asset diversion</div>
+    <div class="gov-check"><div class="check-dot">+</div> All policies in place</div>
+    <div class="gov-check"><div class="check-dot">+</div> ECFA accredited (since 2011)</div>
+    <div class="gov-check"><div class="check-dot">+</div> 990 published on website</div>
+  </div>
+</div>
+
+<!-- CRITICS SAY -->
+<div class="section">
+  <div class="section-title" style="border-bottom-color:#dc2626;">⚖️ Critics Say</div>
+  <div class="critics-box">
+    <div class="item"><span class="bullet">✗</span><span>Revenue ($34.7M) exceeded expenses ($24.7M) by $10M — a 29% surplus. Where is the $10M going? Large surpluses warrant explanation, especially for a donor-funded ministry.</span></div>
+    <div class="item"><span class="bullet">✗</span><span>CEO compensation ~$469K on $34.7M revenue (1.35%) is within acceptable range, but the absolute figure is notable. Benefits rate of 25% is on the higher side.</span></div>
+    <div class="item"><span class="bullet">✗</span><span>Pregnancy resource centers (CPCs) face criticism for counseling approaches — some observers argue they pressure vulnerable women and blur the line between medical care and advocacy.</span></div>
+    <div class="item"><span class="bullet">✗</span><span>Self-reported impact metrics ("babies saved") are not independently verified. The causal link between an ultrasound visit and a woman's decision is difficult to measure objectively.</span></div>
+    <div class="item"><span class="bullet">✗</span><span>Explosive growth from $1.2M to $34.7M in 7 years — governance and internal controls need to keep pace. Rapid scaling increases operational risk.</span></div>
+  </div>
+</div>
+
+<!-- AMBASSADORS SAY -->
+<div class="section">
+  <div class="section-title" style="border-bottom-color:#16a34a;">🤝 Ambassadors Say</div>
+  <div class="ambassadors-box">
+    <div class="item"><span class="bullet">✓</span><span>Perfect 100 Charity Navigator score — only ~5% of rated charities achieve this. 87% to programs, $0.03 to raise $1.</span></div>
+    <div class="item"><span class="bullet">✓</span><span>ECFA accredited since 2011 — 15 years of continuous accountability. All governance policies in place.</span></div>
+    <div class="item"><span class="bullet">✓</span><span>Liabilities at 2.25% of assets — extremely low debt. Financially stable organization.</span></div>
+    <div class="item"><span class="bullet">✓</span><span>Consistent IRS filings from 2011–2023. No scandals, asset diversions, or governance red flags in any filing.</span></div>
+    <div class="item"><span class="bullet">✓</span><span>Board is 83% independent (5/6) with an audit oversight committee — strong governance for an org of this size.</span></div>
+    <div class="item"><span class="bullet">✓</span><span>Revenue growth from $1.2M to $34.7M in 7 years demonstrates significant donor confidence and demand for their model.</span></div>
+  </div>
+</div>
+
+<!-- RED FLAGS -->
+<div class="section">
+  <div class="callout amber">
+    <div class="callout-label">Red Flags</div>
+    Minor. $10M surplus in FY2023 needs explanation — could be earmarked for expansion or represents excess fundraising beyond current deployment capacity. Benefits rate (25%) above average. No major controversies or financial concerns.
+  </div>
+</div>
+
+<!-- VERDICT -->
+<div class="section">
+  <div class="section-title">Verdict</div>
+  <div class="verdict">
+    <p>Clean finances, Gospel-centered pro-life mission, strong governance. <strong>87% to programs</strong>, $0.03 fundraising efficiency, ECFA accredited 15 years running. The $10M surplus and rapid growth warrant monitoring, but the financial metrics are solid across the board.</p>
+    <div class="donate">Donate: preborn.com/donate</div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  Sources: IRS Form 990 (FY2023 filed Aug 2025), Charity Navigator, ProPublica Nonprofit Explorer, ECFA, MinistryWatch &nbsp;·&nbsp; Prepared by Po — Mar 2026
+</div>
+
+</body>
+</html>
