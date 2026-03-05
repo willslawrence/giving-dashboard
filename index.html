@@ -796,17 +796,37 @@ function filterCat(cat) {
   document.querySelectorAll('.cat-btn').forEach(btn => {
     btn.classList.toggle('active', btn.dataset.cat === cat);
   });
-  // Dim/undim cards
-  document.querySelectorAll('.card').forEach(card => {
-    if (cat === 'all') {
+  // Re-render with matching cards first
+  const grid = document.querySelector('.grid');
+  if (!grid) return;
+  const cards = Array.from(grid.children);
+  
+  if (cat === 'all') {
+    // Restore original order
+    cards.sort((a, b) => Number(a.dataset.index) - Number(b.dataset.index));
+    cards.forEach(card => {
       card.classList.remove('dimmed');
-    } else {
-      const cardCat = card.dataset.category;
-      const cardCats = card.dataset.categories || cardCat;
-      const matches = cardCats.split(',').includes(cat);
-      card.classList.toggle('dimmed', !matches);
-    }
-  });
+      grid.appendChild(card);
+    });
+  } else {
+    const matching = [];
+    const dimmed = [];
+    cards.forEach(card => {
+      const cardCats = (card.dataset.categories || card.dataset.category).split(',');
+      if (cardCats.includes(cat)) {
+        card.classList.remove('dimmed');
+        matching.push(card);
+      } else {
+        card.classList.add('dimmed');
+        dimmed.push(card);
+      }
+    });
+    // Sort each group by original index to keep stable order within
+    matching.sort((a, b) => Number(a.dataset.index) - Number(b.dataset.index));
+    dimmed.sort((a, b) => Number(a.dataset.index) - Number(b.dataset.index));
+    matching.forEach(c => grid.appendChild(c));
+    dimmed.forEach(c => grid.appendChild(c));
+  }
 }
 
 function renderSections() {
@@ -820,7 +840,11 @@ function renderSections() {
   `;
   const grid = document.createElement('div');
   grid.className = 'grid';
-  allRecipients.forEach(r => grid.appendChild(renderCard(r)));
+  allRecipients.forEach((r, i) => {
+    const card = renderCard(r);
+    card.dataset.index = i;
+    grid.appendChild(card);
+  });
   el.appendChild(grid);
 }
 
