@@ -258,7 +258,8 @@ const allManualRecipients = [
     amountNum: 4391,
     potentialAmount: "",
     frequency: "Given",
-    description: "Spartans International uses sports — taekwondo, baseball, basketball, fitness — as a vehicle for life transformation and discipleship in Alexandria, Egypt. They coach at Village of Hope (a special needs school), girls' juvenile detention centres, and boys' homes. We sponsor weekly coaching sessions at Village of Hope, where children with special needs build confidence, confront fears, and experience safe community through sport. The Egyptian economy is squeezing families hard, and some parents are pulling kids from programs.",
+    description: "Sports outreach in Alexandria, Egypt — weekly coaching at Village of Hope (special needs school), plus juvenile centres and boys' homes. Discipleship through sport.",
+    fullDescription: "Spartans International uses sports — taekwondo, baseball, basketball, fitness — as a vehicle for life transformation and discipleship in Alexandria, Egypt. They coach at Village of Hope (a special needs school), girls' juvenile detention centres, and boys' homes. We sponsor weekly coaching sessions at Village of Hope, where children with special needs build confidence, confront fears, and experience safe community through sport. The Egyptian economy is squeezing families hard, and some parents are pulling kids from programs.",
     link: "https://www.facebook.com/SpartansAcademy/",
     lastUpdate: "3/10/2026",
     score: null,
@@ -913,7 +914,7 @@ function openModal(r) {
   const catColors = {church:'#60a5fa',orphan:'#d4a017',persecuted:'#f97316',word:'#22c55e',local:'#4ade80',global:'#6088e0'};
   const cc = catColors[r.category] || 'var(--muted)';
   content += `<div class="modal-sub"><span style="color:${cc};font-weight:600">${r.categoryLabel}</span> · ${r.frequency} · ${r.amount || 'TBD'}</div>`;
-  content += `<div class="modal-desc">${r.description}</div>`;
+  content += `<div class="modal-desc">${r.fullDescription || r.description}</div>`;
   
   if (r.link) {
     content += `<a class="modal-link" href="${r.link}" target="_blank">${r.link} ↗</a>`;
