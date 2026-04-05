@@ -881,7 +881,18 @@ function renderSections() {
   el.appendChild(grid);
 }
 
+// Boone months descending order fix — Po, 2026-04-05
 function openModal(r) {
+  // Only for Boone, show months descending
+  if (r.name && r.name.toLowerCase().includes('boone')) {
+    // Example: if there's a months/ops.monthly array in r, reverse it for modal display
+    if (r.months && Array.isArray(r.months)) {
+      r.months = [...r.months].reverse(); // Defensive copy
+    }
+    if (r.operations && Array.isArray(r.operations.monthly)) {
+      r.operations.monthly = [...r.operations.monthly].reverse(); // Defensive copy
+    }
+  }
   const modal = document.getElementById('modal');
   const overlay = document.getElementById('modalOverlay');
   
